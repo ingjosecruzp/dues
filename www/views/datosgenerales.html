@@ -1,0 +1,26 @@
+<ion-view name="datosgenerales-view" ng-init="Inicio()">
+        <a class="item">
+                <h2>Grupo de Articulos:</h2>
+                <p></p>
+        </a>
+        <a class="item item-toggle">
+            Estado Activo
+            <label class="toggle toggle-dark">
+                <input type="checkbox" ng-checked="EstadoActivo">
+                <div class="track">
+                    <div class="handle"></div>
+                </div>
+            </label>
+        </a>
+        <ion-list>        
+            <ion-checkbox ng-model="CheckSujetoImpuetos" ng-disabled="true">Sujeto a Impuesto</ion-checkbox>
+            <ion-checkbox ng-model="CheckArtInventario" ng-disabled="true">Articulo de Inventario</ion-checkbox>
+            <ion-checkbox ng-model="CheckArtVenta" ng-disabled="true">Articulo de Venta</ion-checkbox>
+            <ion-checkbox ng-model="CheckArtCompra" ng-disabled="true">Articulo de Compra</ion-checkbox>
+            <ion-checkbox ng-model="CheckArtLinea" ng-disabled="true">Articulo de Linea</ion-checkbox>
+        </ion-list>
+        <a class="item">
+                <h2>Comentarios:</h2>
+                <p><textarea rows="10" ng-model="Articulo.UserText" style="width:100%"></textarea></p>
+        </a>   
+</ion-view>

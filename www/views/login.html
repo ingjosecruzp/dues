@@ -1,0 +1,26 @@
+<ion-view name="login-view">
+  <ion-content class="padding">
+        <div class="row responsive-md">
+          <div class="col"></div>
+          <div class="col">
+            <div class="card">
+              <div class="item item-text-wrap">
+                <center><span>Sistema de Inventarios v1.0</span></center>
+                <div class="list">
+                  <label class="item item-input">
+                    <input type="text" placeholder="Usuario" ng-model="Login.Usuario">
+                  </label>
+                  <label class="item item-input">
+                    <input type="password" placeholder="Contraseña" ng-model="Login.Password">
+                  </label>
+                  <div class="item">
+                    <button class="button button-block button-dark activated" ng-click="Entrar()">Iniciar Sesion</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col"></div>
+        </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,29 @@
+<ion-view name="articulo-view" ng-init="Inicio()">
+    <ion-content class="padding">
+        <div class="list list-inset LargoCarta">
+            <a class="item">
+                DUES
+            </a>
+            <a class="item item-thumbnail-left">
+                    <img src="{{Articulo.ImagenBase64}}" style="max-width: 99px;max-height: 91px;">
+                    <div class="row">
+                        <div class="col">
+                            <h6>Codigo SAP</h6>
+                            <p>{{Articulo.ItemCode}}</p>
+                        </div>
+                        <div class="col">
+                            <h6>Codigo de barras</h6>
+                            <p>{{Articulo.CodeBars}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h6>Descripción</h6>
+                            <p>{{Articulo.ItemName}}</p>
+                        </div>
+                    </div>
+            </a>
+            <ion-nav-view name="submenu"></ion-nav-view>
+        </div>
+    </ion-content>
+  </ion-view>
