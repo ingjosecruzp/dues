@@ -1,0 +1,67 @@
+<ion-view name="inventario-view">
+    <!-- Cabecera -->
+    <div class="bar bar-header bar-dark" style="background-color:black">
+        <h1 class="title">Inventario</h1>
+        <button class="button button-icon ion-ios-search pull-right" style="margin-right: 5%;" ng-click="AbrirBusqueda()"></i>
+        <button class="button button-icon ion-android-more-vertical"></i>
+    </div>
+
+    <!-- Contenido central -->
+    <ion-content style="background-color:white;">
+        <!-- Div para evitar que el content quede bajo el header-->
+        <div style="height: 50px"></div>
+        
+        <div class="item-input-inset oculto" id="cajaBusqueda">
+                <label class="item-input-wrapper">
+                    <i class="icon ion-ios-search placeholder-icon"></i>
+                    <input type="search" placeholder="Buscar" ng-model="searchQuery" ng-enter="IniciarBusqueda(searchQuery);">
+                </label>
+        </div>
+        
+        <div>
+
+            <!-- Comienzo de lista de artículos-->
+            <div class="list">
+                <div class="item item-thumbnail-left item-text-wrap" style="text-align: justify;" ng-click="OpcionProducto()">
+                    <img src="/img/prueba.jpg" alt="">
+                    <h2 style="margin-bottom:6px;"> 
+                    <div style="float:left; 
+                    border-radius:100%; 
+                    background-color:lightgray;
+                    width:25px; height: 25px; 
+                    text-align:center; 
+                    margin-right:10px;
+                    "><p style="font-size:10px; color:black; margin-top:5px;">1</p></div> 
+                    CAALAS EUCALYPTUS</h2>
+                    <p>SCALA EUCALYPTUS 65% ALGODON 35% POLIESTER 1.40ML</p>
+                    <p style="float:left;"><b>Cantidad:</b> 125.85</p>
+                    <p style="text-align:right;"><b>Lote:</b> L21</p>
+                    <p class="pull-right" style="text-align:right;"><b>Fecha:</b> 11/12/2017 12:30 pm</p>
+                </div>
+                
+            </div>
+            <!-- Fin de lista de artículos-->
+            
+            <!-- Div para evitar que el content quede bajo el footer-->
+            <div style="height: 50px;"></div>
+
+            <ion-infinite-scroll ng-if="moreDataCanBeLoaded()" on-infinite="Buscar(searchQuery)" distance="1%"></ion-infinite-scroll>
+        </div>
+        
+    </ion-content>
+
+    <!-- Float button -->
+    <div class="float-button">
+        <span class="height-fix">
+              <a class="content" ng-click="OpcionAgregar()">
+                <i class="ion-plus"> </i>
+               </a>
+          </span>
+    </div>
+
+    <!-- Barra con botón de guardar -->
+    <div class="bar bar-footer" style="background-color:lightgray" ng-click="OpcionGuardar()">
+        <button class="button button-icon ion-archive" style="color:black; width:100%;">     Guardar</button>
+    </div>
+    
+  </ion-view>

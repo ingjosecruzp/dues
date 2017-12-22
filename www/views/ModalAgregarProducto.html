@@ -1,0 +1,41 @@
+<div class="modal" style="height: 100px;">
+
+    <!-- Barra con tìtulo y botón de salir-->
+    <ion-header-bar class="bar-secondary">
+        <center>
+            <h1 class="title" style="position: absolute;">Producto</h1>
+            <button class="button button-clear button-light" ng-click="ModalAgregarProducto.hide()"><i class="icon ion-close"></i></button>
+        </center>
+    </ion-header-bar>
+    <ion-content>
+        <!-- Div que contiene la imagen, descripciòn, Còdigo SAP y Barras-->
+        <div class="item item-thumbnail-left item-text-wrap" style="text-align: justify;">
+            <img src="/img/prueba.jpg" alt="">
+            
+            <p><b>Código SAP:</b></p>
+            <p>DT-CP-CJN-CAALRUSSET</p>
+            <p><b>Código de barras:</b></p>
+            <p>Código de barras</p>
+            <p><b>Descripción:</b></p>
+            <p>SCALA EUCALYPTUS 65% ALGODON 35% POLIESTER 1.40ML</p>
+        </div>
+
+        <div style="margin-left:2%; margin-right:2%;">
+            <br>
+            <p>Cantidad:</p>
+            <input type="number" placeholder="Cantidad" style="border-bottom:2px solid #39B6B6; width:100%;">
+            <br><br>
+            <p style="float:left;">Nombre Lote:</p>
+            <label style="float:right;">Administración por Lotes</label>
+            <input type="checkbox" style="float:right; margin-right:2%;" ng-model="checkLote">
+            <input type="text" placeholder="Nombre Lote" style="border-bottom:2px solid #39B6B6; width:100%;" ng-disabled="!checkLote">
+        </div>
+
+    </ion-content>
+
+    <!-- Botones de Cancelar y Agregar-->
+    <div class="bar bar-footer">
+        <button class="button button-assertive" style="width:48%; font-size: 1.1em;"> <b>Cancelar</b></button>
+        <button class="button button-balanced" style="width:48%; font-size: 1.1em;"><b>Aregar</b></button>
+    </div>
+</div>

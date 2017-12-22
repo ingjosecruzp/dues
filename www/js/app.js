@@ -90,7 +90,13 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider){
         url: '/buscararticulo',
         templateUrl: 'views/buscararticulo.html',
         controller: 'BuscarArticuloController'
-      });
+      })
+      .state('inventario', {
+        url: '/inventario',
+        templateUrl: 'views/inventario.html',
+        controller: 'InventarioController'
+      })
+      ;
 
 
     $urlRouterProvider.otherwise('/login');
