@@ -61,4 +61,8 @@ app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ion
 	$scope.BtnBuscarArticulo=function(){
 		$state.go('buscararticulo');
 	}
+
+	$scope.BtnTomaInventario=function(){
+		$state.go('inventario');
+	}
 });
