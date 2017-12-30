@@ -1,4 +1,4 @@
-<ion-view name="inventario-view">
+<ion-view name="inventario-view" ng-init="IniciarInventario()">
     <!-- Cabecera -->
     <div class="bar bar-header bar-dark" style="background-color:black">
         <h1 class="title">Inventario</h1>
@@ -22,8 +22,8 @@
 
             <!-- Comienzo de lista de artículos-->
             <div class="list">
-                <div class="item item-thumbnail-left item-text-wrap" style="text-align: justify;" ng-click="OpcionProducto()">
-                    <img src="/img/prueba.jpg" alt="">
+                <div class="item item-thumbnail-left item-text-wrap" style="text-align: justify;" ng-click="OpcionProducto()" ng-repeat="articulo in articulosGuardados">
+                    <img src="{{articulo.ImagenBase64}}" alt="">
                     <h2 style="margin-bottom:6px;"> 
                     <div style="float:left; 
                     border-radius:100%; 
@@ -31,12 +31,12 @@
                     width:25px; height: 25px; 
                     text-align:center; 
                     margin-right:10px;
-                    "><p style="font-size:10px; color:black; margin-top:5px;">1</p></div> 
-                    CAALAS EUCALYPTUS</h2>
-                    <p>SCALA EUCALYPTUS 65% ALGODON 35% POLIESTER 1.40ML</p>
-                    <p style="float:left;"><b>Cantidad:</b> 125.85</p>
-                    <p style="text-align:right;"><b>Lote:</b> L21</p>
-                    <p class="pull-right" style="text-align:right;"><b>Fecha:</b> 11/12/2017 12:30 pm</p>
+                    "><p style="font-size:10px; color:black; margin-top:5px;">{{articulo.Numero}}</p></div> 
+                    {{articulo.ItemName}}</h2>
+                    <p>{{articulo.ItemName}}</p>
+                    <p style="float:left;"><b>Cantidad:</b> {{articulo.Cantidad}}</p>
+                    <p style="text-align:right;"><b>Lote:</b> {{articulo.NombreLote}}</p>
+                    <p class="pull-right" style="text-align:right;"><b>Fecha:</b> {{articulo.FechaHora}}</p>
                 </div>
                 
             </div>

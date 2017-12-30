@@ -263,14 +263,16 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
         //Función para el botón de agregar
         $rootScope.btnAgregar = function(){
             if($rootScope.member.Cantidad==null){
-                console.log('No hay cantidad');
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Error',
+                    template: 'No se ha ingresado ninguna cantidad'
+                });
                 return;
             }
             else{
-                detalleinventario.add($rootScope.member);
+                detalleinventario.add($rootScope.member).then(function(){$scope.ModalAgregarProducto.hide();});
 
                 detalleinventario.all().then(function(productos){
-                    console.log("Resultados de all:");
                     productos.forEach(function(producto) {
                         console.log(producto);
                     });
@@ -278,6 +280,45 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
             }
         }
 
+        $rootScope.btnCancelar = function(){
+            $scope.ModalAgregarProducto.hide();
+        }
+
+
+        //Función para inicar la lista de artículos inventariados
+        $scope.articulosGuardados=[];
+        var x = 0;
+        $scope.IniciarInventario = function(){
+            detalleinventario.all().then(function(productos){
+                productos.forEach(function(producto) {
+                    $scope.articulosGuardados[x]=producto;
+                    $scope.articulosGuardados[x].Numero=x+1;
+
+                    //OBTENCIÓN DE LA IMÁGEN DEL ARTÍCULO
+                    $scope.articulosGuardados[x].ImagenBase64="img/loading.gif";
+                                 
+                    if($scope.articulosGuardados[x].PicturName==undefined){
+                        $scope.articulosGuardados[x].ImagenBase64="img/camera.png";
+                    }
+                    else{
+                        articulo.query({method:'getImagen',Imagen:$scope.articulosGuardados[x].PicturName},function(respuesta){
+                                console.log(respuesta);
+                                $scope.articulosGuardados[x].ImagenBase64="data:image/png;base64," + respuesta.data[0];
+                            },function(error){
+                            var alertPopup = $ionicPopup.alert({
+                                title: 'Error',
+                                template: error.headers("Error")
+                            });
+                        });
+                    }
+
+                    x++;
+                    console.log("x:"+x+" producto:"+producto);
+                });
+            });
+        }
+
+        
         /*$scope.AgregarProducto = function(){
             //Lineas de código para agregar un producto
 

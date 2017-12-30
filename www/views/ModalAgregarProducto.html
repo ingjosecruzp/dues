@@ -4,7 +4,7 @@
     <ion-header-bar class="bar-secondary">
         <center>
             <h1 class="title" style="position: absolute;">Producto</h1>
-            <button class="button button-clear button-light" ng-click="ModalAgregarProducto.hide()"><i class="icon ion-close"></i></button>
+            <button class="button button-clear button-light" ng-click="btnCancelar()"><i class="icon ion-close"></i></button>
         </center>
     </ion-header-bar>
     <ion-content>
@@ -30,12 +30,12 @@
             <input type="checkbox" style="float:right; margin-right:2%;" ng-model="checkLote" ng-change="member.NombreLote=null">
             <input ng-model="member.NombreLote" type="text" placeholder="Nombre Lote" style="border-bottom:2px solid #39B6B6; width:100%;" ng-disabled="!checkLote">
         </div>
-
+        <div style="height:60px;"></div>
     </ion-content>
 
     <!-- Botones de Cancelar y Agregar-->
     <div class="bar bar-footer">
-        <button class="button button-assertive" style="width:48%; font-size: 1.1em;" ng-click="ModalAgregarProducto.hide()"> <b>Cancelar</b></button>
+        <button class="button button-assertive" style="width:48%; font-size: 1.1em;" ng-click="btnCancelar()"> <b>Cancelar</b></button>
         <button class="button button-balanced" style="width:48%; font-size: 1.1em;" ng-click="btnAgregar()"><b>Aregar</b></button>
     </div>
 </div>
