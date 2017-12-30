@@ -1,4 +1,4 @@
-app.controller('InventarioController', function($scope,$ionicLoading,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,$ionicModal,articulo,inventario,$cordovaBarcodeScanner, $ionicPlatform) {
+app.controller('InventarioController', function($scope,$ionicLoading,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,$ionicModal,articulo,inventario,detalleinventario,$cordovaBarcodeScanner, $ionicPlatform) {
     
         //Función que muestra un popup para eliminar o modificar un articulo
         $scope.OpcionProducto = function(){
@@ -37,13 +37,15 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
 
             articuloPopup.then(function(res){
                 if(res){
-                    //Líneas de código para eliminar artículo
+                    //Líneas de código para Escribir código
                     console.log("Entre a Escribir");
                     $scope.OpcionEscribirCodigo();
                 }else{
-                    //Líneas de código Modificar artículo
-                    $scope.ModalAgregarProducto.show();
+                    //Líneas de código para Escanear código
                     console.log("Entre a escanear");
+                    $scope.Escanear();
+                    $scope.ModalAgregarProducto.show();
+
                     //PRUEBA----------------------------------
                     /*var member = {
                         idInventario:null,
@@ -65,7 +67,6 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                         });
                     });*/
                     //PRUEBA----------------------------------
-                    $scope.Escanear();
                 }
             });
         }
@@ -123,7 +124,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
             });
         }
 
-        //Función que muestra un popup cuando se presiona el botónn de guardar
+        //Función que muestra un popup cuando se presiona el botón de guardar
         $scope.OpcionGuardar = function(){
             console.log("Entre a Guardar productos");
             var articuloPopup = $ionicPopup.confirm({
@@ -154,8 +155,9 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
         $ionicModal.fromTemplateUrl('views/ModalAgregarProducto.html', function(modal){
             $scope.ModalAgregarProducto = modal;
         }, {
-            scope: $scope,
-            animation: 'slide-in-up'
+            scope: $rootScope,
+            animation: 'slide-in-up',
+            controller: 'InventarioController'
         });
 
         //Función para mostrar u ocultar la caja de búsqueda
@@ -185,13 +187,58 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                                     noBackdrop :false,
                                     template: '<ion-spinner icon="spiral"></ion-spinner><br>Buscando producto'
                                 });
-                                var vari=articulo.query({codigo:barcodeData.text},function(respuesta){
+
+                                var vari=articulo.query({method:'getXCodigo',codigo:barcodeData.text},function(respuesta){
                                     $ionicLoading.hide();
-                                    $scope.Articulo=respuesta[0];
-                       
-                                    $rootScope.articulo=$scope.Articulo
-                                    console.log(scope.articulo);
+                                    $scope.articulo=vari[0];
+
+                                    //OBTENCIÓN DE FECHA Y HORA
+                                    var fecha = new Date();
+                                    var dd = fecha.getDate();
+                                    var mm = fecha.getMonth()+1;//January is 0, so always add + 1
+                                    var yyyy = fecha.getFullYear();
+                                    var hh =fecha.getHours();
+                                    var min = fecha.getMinutes();
+                                    if(dd<10){dd='0'+dd}
+                                    if(mm<10){mm='0'+mm}
+                                    if(hh<10){hh='0'+hh}
+                                    if(min<10){min='0'+min}
+                                    fecha = yyyy+'-'+mm+'-'+dd+' '+hh+':'+min;
+                                    //fecha = yyyy+'-'+mm+'-'+dd;
+                                    console.log("Fecha: "+fecha);
+
+                                    //ASIGNACIÓN DE VALORES PARA MEMBER
+                                    $rootScope.member={};
+                                    $rootScope.member.idDetalle_Inventario = null;
+                                    $rootScope.member.ItemCode = $scope.articulo.ItemCode;
+                                    $rootScope.member.ItemName = $scope.articulo.ItemName;
+                                    $rootScope.member.Codebars = $scope.articulo.CodeBars;
+                                    $rootScope.member.Cantidad = null;
+                                    $rootScope.member.NombreLote = null;
+                                    $rootScope.member.PicturName = $scope.articulo.PicturName;
+                                    $rootScope.member.FechaHora = fecha;
+                                    $rootScope.member.InventarioId = 1; 
+
+                                    console.log('Fecha en root: '+$rootScope.member.FechaHora);
+
+                                    //OBTENCIÓN DE LA IMÁGEN DEL ARTÍCULO
+                                    $rootScope.member.ImagenBase64="img/loading.gif";
                                     
+                                    if($rootScope.member.PicturName==undefined)
+                                    {
+                                        $rootScope.member.ImagenBase64="img/camera.png";
+                                        return;
+                                    }
+                            
+                                    articulo.query({method:'getImagen',Imagen:$rootScope.member.PicturName},function(respuesta){
+                                            console.log(respuesta);
+                                            $rootScope.member.ImagenBase64="data:image/png;base64," + respuesta.data[0];
+                                        },function(error){
+                                        var alertPopup = $ionicPopup.alert({
+                                            title: 'Error',
+                                            template: error.headers("Error")
+                                        });
+                                    });
                                },function(error){
                                     var alertPopup = $ionicPopup.alert({
                                         title: 'Error',
@@ -210,6 +257,24 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
             }
             catch(err){
                 console.log(err);
+            }
+        }
+
+        //Función para el botón de agregar
+        $rootScope.btnAgregar = function(){
+            if($rootScope.member.Cantidad==null){
+                console.log('No hay cantidad');
+                return;
+            }
+            else{
+                detalleinventario.add($rootScope.member);
+
+                detalleinventario.all().then(function(productos){
+                    console.log("Resultados de all:");
+                    productos.forEach(function(producto) {
+                        console.log(producto);
+                    });
+                });
             }
         }
 

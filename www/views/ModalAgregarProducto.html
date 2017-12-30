@@ -10,32 +10,32 @@
     <ion-content>
         <!-- Div que contiene la imagen, descripciòn, Còdigo SAP y Barras-->
         <div class="item item-thumbnail-left item-text-wrap" style="text-align: justify;">
-            <img src="/img/prueba.jpg" alt="">
+            <img src="{{member.ImagenBase64}}" alt="">
             
             <p><b>Código SAP:</b></p>
-            <p>DT-CP-CJN-CAALRUSSET</p>
+            <p>{{member.ItemCode}}</p>
             <p><b>Código de barras:</b></p>
-            <p>Código de barras</p>
+            <p>{{member.Codebars}}</p>
             <p><b>Descripción:</b></p>
-            <p>SCALA EUCALYPTUS 65% ALGODON 35% POLIESTER 1.40ML</p>
+            <p>{{member.ItemName}}</p>
         </div>
 
         <div style="margin-left:2%; margin-right:2%;">
             <br>
             <p>Cantidad:</p>
-            <input type="number" placeholder="Cantidad" style="border-bottom:2px solid #39B6B6; width:100%;">
+            <input ng-model="member.Cantidad" type="number" placeholder="Cantidad" style="border-bottom:2px solid #39B6B6; width:100%;">
             <br><br>
             <p style="float:left;">Nombre Lote:</p>
             <label style="float:right;">Administración por Lotes</label>
-            <input type="checkbox" style="float:right; margin-right:2%;" ng-model="checkLote">
-            <input type="text" placeholder="Nombre Lote" style="border-bottom:2px solid #39B6B6; width:100%;" ng-disabled="!checkLote">
+            <input type="checkbox" style="float:right; margin-right:2%;" ng-model="checkLote" ng-change="member.NombreLote=null">
+            <input ng-model="member.NombreLote" type="text" placeholder="Nombre Lote" style="border-bottom:2px solid #39B6B6; width:100%;" ng-disabled="!checkLote">
         </div>
 
     </ion-content>
 
     <!-- Botones de Cancelar y Agregar-->
     <div class="bar bar-footer">
-        <button class="button button-assertive" style="width:48%; font-size: 1.1em;"> <b>Cancelar</b></button>
-        <button class="button button-balanced" style="width:48%; font-size: 1.1em;"><b>Aregar</b></button>
+        <button class="button button-assertive" style="width:48%; font-size: 1.1em;" ng-click="ModalAgregarProducto.hide()"> <b>Cancelar</b></button>
+        <button class="button button-balanced" style="width:48%; font-size: 1.1em;" ng-click="btnAgregar()"><b>Aregar</b></button>
     </div>
 </div>

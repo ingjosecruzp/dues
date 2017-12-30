@@ -28,8 +28,8 @@ app.run(function($ionicPlatform,$rootScope,$cordovaSQLite) {
   }
 
   //Queries para crear las tablas de la base de datos
-  $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS inventario (idInventario INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,FechaInicio DATETIME NOT NULL,UsuarioId INTEGER NOT NULL,UUID VARCHAR (40) NOT NULL,Modelo VARCHAR (20) NOT NULL);');
-  $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS detalle_inventario (idDetalle_Inventario INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,ItemCode VARCHAR (45) NOT NULL,ItemName VARCHAR (45) NOT NULL,Codebars VARCHAR (45) NOT NULL,Cantidad VARCHAR (45) NOT NULL,NombreLote VARCHAR (45) NULL,PicturName VARCHAR (45) NULL,FechaHora DATETIME NOT NULL,InventarioId INTEGER NOT NULL);');
+  $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS inventario (idInventario INTEGER PRIMARY KEY AUTOINCREMENT,FechaInicio DATETIME,UsuarioId INTEGER,UUID VARCHAR (40),Modelo VARCHAR (20));');
+  $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS detalle_inventario (idDetalle_Inventario INTEGER PRIMARY KEY AUTOINCREMENT,ItemCode VARCHAR (45),ItemName VARCHAR (45),Codebars VARCHAR (45),Cantidad VARCHAR (45),NombreLote VARCHAR (45),PicturName VARCHAR (45),FechaHora DATETIME,InventarioId INTEGER);');
 
   });
 });
@@ -147,7 +147,7 @@ app.run(function($ionicPlatform) {
 
 //Variables Globales
 app.value('Variables',{
-  IpServidor: '192.168.0.105:8080'
+  IpServidor: '192.168.0.106:8080'
   //IpServidor: 'localhost:8080'
   //IpServidor: 'duestextil.fortiddns.com:8020/WcfDues'
 });

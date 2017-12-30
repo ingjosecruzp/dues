@@ -17,7 +17,7 @@ app.factory('detalleinventario', function($cordovaSQLite, DBA) {
     }
   
     self.add = function(member) {
-      var parameters = [member.id,member.nombre,member.ruta,member.width,member.height,member.codigo];
+      var parameters = [member.idDetalle_Inventario,member.ItemCode,member.ItemName,member.Codebars,member.Cantidad,member.NombreLote,member.PicturName,member.FechaHora,member.InventarioId];
       return DBA.query("INSERT INTO detalle_inventario (idDetalle_Inventario,ItemCode,ItemName,Codebars,Cantidad,NombreLote,PicturName,FechaHora,InventarioId) VALUES (?,?,?,?,?,?,?,?,?)", parameters);
     }
   
