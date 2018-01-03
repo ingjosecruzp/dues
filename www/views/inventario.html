@@ -22,7 +22,7 @@
 
             <!-- Comienzo de lista de artículos-->
             <div class="list">
-                <div class="item item-thumbnail-left item-text-wrap" style="text-align: justify;" ng-click="OpcionProducto()" ng-repeat="articulo in articulosGuardados">
+                <div class="item item-thumbnail-left item-text-wrap" style="text-align: justify;" ng-click="OpcionProducto(articulo)" ng-repeat="articulo in articulosGuardados">
                     <img src="{{articulo.ImagenBase64}}" alt="">
                     <h2 style="margin-bottom:6px;"> 
                     <div style="float:left; 

@@ -22,7 +22,7 @@ app.factory('detalleinventario', function($cordovaSQLite, DBA) {
     }
   
     self.remove = function(member) {
-      var parameters = [member.id];
+      var parameters = [member.idDetalle_Inventario];
       return DBA.query("DELETE FROM detalle_inventario WHERE idDetalle_Inventario = (?)", parameters);
     }
   

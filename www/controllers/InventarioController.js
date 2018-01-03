@@ -1,8 +1,9 @@
 app.controller('InventarioController', function($scope,$ionicLoading,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,$ionicModal,articulo,inventario,detalleinventario,$cordovaBarcodeScanner, $ionicPlatform) {
     
+    $scope.codigoCapturado={};
+
         //Función que muestra un popup para eliminar o modificar un articulo
-        $scope.OpcionProducto = function(){
-            console.log("Entre");
+        $scope.OpcionProducto = function(articulo){
             var articuloPopup = $ionicPopup.confirm({
                 cancelText: 'Modificar',
                 okText: 'Eliminar',
@@ -14,7 +15,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                 if(res){
                     //Líneas de código para eliminar artículo
                     console.log("Entre a Eliminar");
-                    $scope.OpcionEliminarProducto();
+                    $scope.OpcionEliminarProducto(articulo);
                 }else{
                     //Líneas de código Modificar artículo
                     $scope.ModalAgregarProducto.show();
@@ -74,32 +75,88 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
         //Función que muestra un popup con input para agregar código por tecleo
         $scope.OpcionEscribirCodigo = function(){
             console.log("Entre a Escribir código");
+            
             var articuloPopup = $ionicPopup.confirm({
                 title:'Escriba el código de barra', 
-                template: '<input type="text" ng-model="codigo">',
+                template: '<input type="text" ng-model="codigoCapturado.code">',
                 cancelText: 'Cancelar',
                 okText: 'Capturar',
                 okType: 'button-balanced',
-                cancelType: 'button-assertive'
+                cancelType: 'button-assertive',
+                scope: $scope
             });
 
             articuloPopup.then(function(res){
                 if(res){
-                    //Líneas de código para eliminar artículo
+                    //Líneas de código para capturar codigo
                     console.log("Capturar");
+                    console.log("Capturado: "+$scope.codigoCapturado.code);
+
+                    var vari=articulo.query({method:'getXCodigo',codigo:$scope.codigoCapturado.code},function(respuesta){
+                        $ionicLoading.hide();
+                        $scope.articulo=vari[0];
+
+                        //OBTENCIÓN DE FECHA Y HORA
+                        var fecha = new Date();
+                        var dd = fecha.getDate();
+                        var mm = fecha.getMonth()+1;//January is 0, so always add + 1
+                        var yyyy = fecha.getFullYear();
+                        var hh =fecha.getHours();
+                        var min = fecha.getMinutes();
+                        if(dd<10){dd='0'+dd}
+                        if(mm<10){mm='0'+mm}
+                        if(hh<10){hh='0'+hh}
+                        if(min<10){min='0'+min}
+                        fecha = yyyy+'-'+mm+'-'+dd+' '+hh+':'+min;
+                        //fecha = yyyy+'-'+mm+'-'+dd;
+                        console.log("Fecha: "+fecha);
+
+                        //ASIGNACIÓN DE VALORES PARA MEMBER
+                        $rootScope.member={};
+                        $rootScope.member.idDetalle_Inventario = null;
+                        $rootScope.member.ItemCode = $scope.articulo.ItemCode;
+                        $rootScope.member.ItemName = $scope.articulo.ItemName;
+                        $rootScope.member.Codebars = $scope.articulo.CodeBars;
+                        $rootScope.member.Cantidad = null;
+                        $rootScope.member.NombreLote = null;
+                        $rootScope.member.PicturName = $scope.articulo.PicturName;
+                        $rootScope.member.FechaHora = fecha;
+                        $rootScope.member.InventarioId = 1; 
+
+                        console.log('Fecha en root: '+$rootScope.member.FechaHora);
+
+                        //OBTENCIÓN DE LA IMÁGEN DEL ARTÍCULO
+                        $rootScope.member.ImagenBase64="img/loading.gif";
+                        
+                        if($rootScope.member.PicturName==undefined)
+                        {
+                            $rootScope.member.ImagenBase64="img/camera.png";
+                            return;
+                        }
+                
+                        articulo.query({method:'getImagen',Imagen:$rootScope.member.PicturName},function(respuesta){
+                                console.log(respuesta);
+                                $rootScope.member.ImagenBase64="data:image/png;base64," + respuesta.data[0];
+                            },function(error){
+                            var alertPopup = $ionicPopup.alert({
+                                title: 'Error',
+                                template: error.headers("Error")
+                            });
+                        });
+                   },function(error){
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Error',
+                            template: error.headers("Error")
+                        });
+                   });
+
                     $scope.ModalAgregarProducto.show();
-                    
-                }else{
-                    //Líneas de código Modificar artículo
-                    console.log("Cancelar");
-                    return;
-                    
-                }
+                }else{ return; }
             });
         }
 
         //Función que muestra un popup de confirmación de presionar eliminar producto
-        $scope.OpcionEliminarProducto = function(){
+        $scope.OpcionEliminarProducto = function(articulo){
             console.log("Entre a Eliminar producto");
             var articuloPopup = $ionicPopup.confirm({
                 title:'¿Desea eliminar el producto de la lista de inventario?', 
@@ -114,13 +171,14 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                 if(res){
                     //Líneas de código para eliminar artículo
                     console.log("Confirmar");
-                    
-                }else{
-                    //Líneas de código Modificar artículo
-                    console.log("Cancelar");
-                    return;
-                    
-                }
+                    detalleinventario.remove(articulo);
+                    $scope.articulosGuardados.splice(articulo.Numero-1,1);
+                    var x=1;
+                    $scope.articulosGuardados.forEach(function(producto) {
+                        producto.Numero=x;
+                        x++;
+                    });
+                }else{ return; }
             });
         }
 
@@ -262,14 +320,14 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
 
         //Función para el botón de agregar
         $rootScope.btnAgregar = function(){
-            if($rootScope.member.Cantidad==null){
+            if($rootScope.member.Cantidad==null){   //Verificación de cantidad
                 var alertPopup = $ionicPopup.alert({
                     title: 'Error',
                     template: 'No se ha ingresado ninguna cantidad'
                 });
                 return;
             }
-            else{
+            else{   //Código para guardar un nuevo producto cuando la cantidad se agregó
                 detalleinventario.add($rootScope.member).then(function(){$scope.ModalAgregarProducto.hide();});
 
                 detalleinventario.all().then(function(productos){
@@ -277,6 +335,10 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                         console.log(producto);
                     });
                 });
+
+                $rootScope.member.Numero=$scope.articulosGuardados.length+1;
+                $scope.articulosGuardados.push($rootScope.member);
+                $rootScope.member={};
             }
         }
 
