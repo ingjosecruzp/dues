@@ -163,13 +163,15 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                             });
                         });
                    },function(error){
+                       console.log("Entre a error")
                         $ionicLoading.hide();
-                        $scope.ModalAgregarProducto.hide();
                         $rootScope.member={};
                         var alertPopup = $ionicPopup.alert({
                             title: 'Error',
                             template: error.headers("Error")
                         });
+                        alertPopup.then(function(){$scope.ModalAgregarProducto.hide();});
+                        $rootScope.member={};
                    });
 
                     $scope.ModalAgregarProducto.show();
@@ -325,6 +327,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                                     });}
                                     
                                ,function(error){
+                                console.log("Entre a error");
                                     var alertPopup = $ionicPopup.alert({
                                         title: 'Error',
                                         template: error.headers("Error")
@@ -337,7 +340,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                                     title: 'Errorrr',
                                     template: error
                                 });
-                                alertPopup.then(function(){$ionicLoading.hide(); $scope.ModalAgregarProducto.hide();})
+                                alertPopup.then(function(){$ionicLoading.hide(); $scope.ModalAgregarProducto.hide();});
                         });
                     
                 });
