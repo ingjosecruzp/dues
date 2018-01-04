@@ -113,7 +113,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                     var vari=articulo.query({method:'getXCodigo',codigo:$scope.codigoCapturado.code},function(respuesta){
                         $ionicLoading.hide();
                         $scope.articulo=vari[0];
-                        codigoCapturado.code=null;
+                        $scope.codigoCapturado.code=null;
 
                         //OBTENCIÓN DE FECHA Y HORA
                         var fecha = new Date();
@@ -163,6 +163,9 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                             });
                         });
                    },function(error){
+                        $ionicLoading.hide();
+                        $scope.ModalAgregarProducto.hide();
+                        $rootScope.member={};
                         var alertPopup = $ionicPopup.alert({
                             title: 'Error',
                             template: error.headers("Error")
@@ -258,6 +261,10 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                     $cordovaBarcodeScanner
                         .scan()
                         .then(function(barcodeData) {
+                            if(barcodeData.cancelled==true){
+                                $scope.ModalAgregarProducto.hide();
+                                return;
+                            }else{
                             // Success! Barcode data is here
                                 console.log(barcodeData);
                                 $ionicLoading.show({
@@ -315,21 +322,24 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                                             title: 'Error',
                                             template: error.headers("Error")
                                         });
-                                    });
-                               },function(error){
+                                    });}
+                                    
+                               ,function(error){
                                     var alertPopup = $ionicPopup.alert({
                                         title: 'Error',
                                         template: error.headers("Error")
                                     });
-                               });
+                               });}
                         }, function(error) {
                             // An error occurred
-                                $ionicLoading.hide();
+                                
                                 var alertPopup = $ionicPopup.alert({
                                     title: 'Errorrr',
                                     template: error
                                 });
+                                alertPopup.then(function(){$ionicLoading.hide(); $scope.ModalAgregarProducto.hide();})
                         });
+                    
                 });
             }
             catch(err){
