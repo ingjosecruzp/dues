@@ -1,6 +1,9 @@
 app.controller('InventarioController', function($scope,$ionicLoading,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,$ionicModal,articulo,inventario,detalleinventario,$cordovaBarcodeScanner, $ionicPlatform) {
     
     $scope.codigoCapturado={};
+    $scope.indicadorModificar=false;
+    $scope.articulosGuardados=[];
+    var x = 0;
 
         //Función que muestra un popup para eliminar o modificar un articulo
         $scope.OpcionProducto = function(articulo){
@@ -18,10 +21,20 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                     $scope.OpcionEliminarProducto(articulo);
                 }else{
                     //Líneas de código Modificar artículo
-                    $scope.ModalAgregarProducto.show();
+                    $scope.ModificarProducto(articulo);
                     console.log("Entre a Modificar");
                 }
             });
+        }
+
+        $scope.ModificarProducto = function(articulo){
+            $scope.indicadorModificar=true;
+            $rootScope.member=articulo;
+            //Convertir los datos que deben ser int en la BD porque vienen como cadenas
+            $rootScope.member.idDetalle_Inventario=parseInt($rootScope.member.idDetalle_Inventario);
+            $rootScope.member.Cantidad=parseInt($rootScope.member.Cantidad);
+            $rootScope.member.InventarioId=parseInt($rootScope.member.InventarioId);
+            $scope.ModalAgregarProducto.show();
         }
 
 
@@ -92,9 +105,15 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                     console.log("Capturar");
                     console.log("Capturado: "+$scope.codigoCapturado.code);
 
+                    $ionicLoading.show({
+                        noBackdrop :false,
+                        template: '<ion-spinner icon="spiral"></ion-spinner><br>Buscando producto'
+                    });
+
                     var vari=articulo.query({method:'getXCodigo',codigo:$scope.codigoCapturado.code},function(respuesta){
                         $ionicLoading.hide();
                         $scope.articulo=vari[0];
+                        codigoCapturado.code=null;
 
                         //OBTENCIÓN DE FECHA Y HORA
                         var fecha = new Date();
@@ -328,28 +347,42 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                 return;
             }
             else{   //Código para guardar un nuevo producto cuando la cantidad se agregó
-                detalleinventario.add($rootScope.member).then(function(){$scope.ModalAgregarProducto.hide();});
-
-                detalleinventario.all().then(function(productos){
-                    productos.forEach(function(producto) {
-                        console.log(producto);
+                if($scope.indicadorModificar){  //Opción para guardar cambios de modificación
+                    $scope.indicadorModificar=false;
+                    detalleinventario.update($rootScope.member, $rootScope.member).then(function(){
+                        detalleinventario.get($rootScope.member.idDetalle_Inventario);
+                        
+                        var posicion = $rootScope.member.Numero-1;
+                        $scope.articulosGuardados[posicion]=$rootScope.member;
+    
+                        $rootScope.member={};
+                        $scope.ModalAgregarProducto.hide();
+                        return;
                     });
-                });
-
-                $rootScope.member.Numero=$scope.articulosGuardados.length+1;
-                $scope.articulosGuardados.push($rootScope.member);
-                $rootScope.member={};
+                }
+                else{   //Opción para guardar datos de nueva captura
+                    detalleinventario.add($rootScope.member).then(function(){$scope.ModalAgregarProducto.hide();});
+                    
+                    detalleinventario.all().then(function(productos){
+                        productos.forEach(function(producto) {
+                            console.log(producto);
+                        });
+                    });
+    
+                    $rootScope.member.Numero=$scope.articulosGuardados.length+1;
+                    $scope.articulosGuardados.push($rootScope.member);
+                    $rootScope.member={};
+                }
             }
         }
 
         $rootScope.btnCancelar = function(){
+            $rootScope.member={};
             $scope.ModalAgregarProducto.hide();
         }
 
 
         //Función para inicar la lista de artículos inventariados
-        $scope.articulosGuardados=[];
-        var x = 0;
         $scope.IniciarInventario = function(){
             detalleinventario.all().then(function(productos){
                 productos.forEach(function(producto) {

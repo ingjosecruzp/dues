@@ -27,8 +27,8 @@ app.factory('detalleinventario', function($cordovaSQLite, DBA) {
     }
   
     self.update = function(origMember, editMember) {
-      var parameters = [editMember.idDetalle_Inventario,editMember.ItemCode,editMember.ItemName,editMember.Codebars,editMember.Cantidad,editMember.NombreLote,editMember.PicturName,editMember.FechaHora,editMember.InventarioId, origMember.InventarioId];
-      return DBA.query("UPDATE detalle_inventario SET idDetalle_Inventario = (?), ItemCode = (?), ItemName = (?), Codebars = (?), Cantidad = (?), NombreLote = (?), PicturName = (?), FechaHora = (?), InventarioId = (?) WHERE idDetalle_Inventario = (?)", parameters);
+      var parameters = [editMember.ItemCode,editMember.ItemName,editMember.Codebars,editMember.Cantidad,editMember.NombreLote,editMember.PicturName,editMember.FechaHora,editMember.InventarioId, origMember.idDetalle_Inventario];
+      return DBA.query("UPDATE detalle_inventario SET ItemCode = (?), ItemName = (?), Codebars = (?), Cantidad = (?), NombreLote = (?), PicturName = (?), FechaHora = (?), InventarioId = (?) WHERE idDetalle_Inventario = (?)", parameters);
     }
   
     return self;
