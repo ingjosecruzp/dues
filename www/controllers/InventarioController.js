@@ -174,7 +174,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                             });
                         });
                    },function(error){
-                       console.log("Entre a error")
+                        $scope.codigoCapturado.code=null;
                         $ionicLoading.hide();
                         $rootScope.member={};
                         var alertPopup = $ionicPopup.alert({
