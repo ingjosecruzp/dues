@@ -24,6 +24,10 @@ app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ion
 				$cordovaBarcodeScanner
 					.scan()
 					.then(function(barcodeData) {
+						if(barcodeData.cancelled==true){
+							$scope.ModalAgregarProducto.hide();
+							return;
+						}else{
 						// Success! Barcode data is here
 							console.log(barcodeData);
 							$ionicLoading.show({
@@ -43,7 +47,7 @@ app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ion
 									title: 'Error',
 									template: error.headers("Error")
 								});
-						   });
+						   });}
 					}, function(error) {
 						// An error occurred
 							$ionicLoading.hide();
