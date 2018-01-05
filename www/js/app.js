@@ -147,7 +147,7 @@ app.run(function($ionicPlatform) {
 
 //Variables Globales
 app.value('Variables',{
-  IpServidor: '192.168.0.108:8080'
+  IpServidor: '192.168.0.106:8080'
   //IpServidor: 'localhost:8080'
   //IpServidor: 'duestextil.fortiddns.com:8020/WcfDues'
 });

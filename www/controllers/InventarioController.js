@@ -29,7 +29,18 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
 
         $scope.ModificarProducto = function(articulo){
             $scope.indicadorModificar=true;
-            $rootScope.member=articulo;
+            $rootScope.member={
+                idDetalle_Inventario:articulo.idDetalle_Inventario,
+                ItemCode:articulo.ItemCode,
+                ItemName:articulo.ItemName,
+                Codebars:articulo.Codebars,
+                Cantidad:articulo.Cantidad,
+                NombreLote:articulo.NombreLote,
+                PicturName:articulo.PicturName,
+                FechaHora:articulo.FechaHora,
+                InventarioId:articulo.InventarioId,
+                Numero:articulo.Numero
+            };
             //Convertir los datos que deben ser int en la BD porque vienen como cadenas
             $rootScope.member.idDetalle_Inventario=parseInt($rootScope.member.idDetalle_Inventario);
             $rootScope.member.Cantidad=parseInt($rootScope.member.Cantidad);
