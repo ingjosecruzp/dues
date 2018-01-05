@@ -27,8 +27,8 @@
             <br><br>
             <p style="float:left;">Nombre Lote:</p>
             <label style="float:right;">Administración por Lotes</label>
-            <input type="checkbox" style="float:right; margin-right:2%;" ng-model="checkLote" ng-change="member.NombreLote=null">
-            <input ng-model="member.NombreLote" type="text" placeholder="Nombre Lote" style="border-bottom:2px solid #39B6B6; width:100%;" ng-disabled="!checkLote">
+            <input type="checkbox" style="float:right; margin-right:2%;" ng-model="checkLote.check" ng-change="member.NombreLote=null">
+            <input ng-model="member.NombreLote" type="text" placeholder="Nombre Lote" style="border-bottom:2px solid #39B6B6; width:100%;" ng-disabled="!checkLote.check">
         </div>
         <div style="height:60px;"></div>
     </ion-content>

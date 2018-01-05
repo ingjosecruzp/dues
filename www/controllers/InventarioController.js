@@ -3,6 +3,8 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
     $scope.codigoCapturado={};
     $scope.indicadorModificar=false;
     $scope.articulosGuardados=[];
+    $rootScope.checkLote={};
+    $rootScope.checkLote.check=false;
     var x = 0;
 
         //Función que muestra un popup para eliminar o modificar un articulo
@@ -28,6 +30,9 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
         }
 
         $scope.ModificarProducto = function(articulo){
+            if(articulo.NombreLote==null) $rootScope.checkLote.check=false;
+            else $rootScope.checkLote.check=true;
+
             $scope.indicadorModificar=true;
             $rootScope.member={
                 idDetalle_Inventario:articulo.idDetalle_Inventario,
