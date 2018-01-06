@@ -414,22 +414,31 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
 
 
         //Función para inicar la lista de artículos inventariados
+
         $scope.IniciarInventario = function(){
             detalleinventario.all().then(function(productos){
                 productos.forEach(function(producto) {
-                    $scope.articulosGuardados[x]=producto;
-                    $scope.articulosGuardados[x].Numero=x+1;
+                    //$scope.articulosGuardados[x]=producto;
+                    //$scope.articulosGuardados[x].Numero=x+1;
+                    $scope.articulosGuardados.push(producto);
+                    producto.Numero=x+1;
 
                     //OBTENCIÓN DE LA IMÁGEN DEL ARTÍCULO
-                    $scope.articulosGuardados[x].ImagenBase64="img/loading.gif";
+                    //$scope.articulosGuardados[x].ImagenBase64="img/loading.gif";
+                    //producto.ImagenBase64="img/loading.gif";
                                  
                     if($scope.articulosGuardados[x].PicturName==undefined){
-                        $scope.articulosGuardados[x].ImagenBase64="img/camera.png";
+                        //$scope.articulosGuardados[x].ImagenBase64="img/camera.png";
+                        producto.ImagenBase64="img/camera.png";
                     }
                     else{
-                        articulo.query({method:'getImagen',Imagen:$scope.articulosGuardados[x].PicturName},function(respuesta){
+                        $scope.posimagenes=x;
+                        //articulo.query({method:'getImagen',Imagen:$scope.articulosGuardados[x].PicturName},function(respuesta){
+                        articulo.query({method:'getImagen',Imagen:producto.PicturName},function(respuesta){
                                 console.log(respuesta);
-                                $scope.articulosGuardados[x].ImagenBase64="data:image/png;base64," + respuesta.data[0];
+                                //$scope.articulosGuardados[x].ImagenBase64="data:image/png;base64," + respuesta.data[0];
+                                //$scope.imagenes.push(respuesta.data[0]);
+                                producto.ImagenBase64="data:image/png;base64," + respuesta.data[0];
                             },function(error){
                             var alertPopup = $ionicPopup.alert({
                                 title: 'Error',
@@ -438,6 +447,8 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                         });
                     }
 
+                    console.log($scope.articulosGuardados[x]);
+                    console.log("Imagen: "+$scope.articulosGuardados[x].ImagenBase64);
                     x++;
                     console.log("x:"+x+" producto:"+producto);
                 });
