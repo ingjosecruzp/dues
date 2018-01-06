@@ -6,19 +6,19 @@
             <div class="card">
               <div class="item item-text-wrap">
                   <div class="row">
-                      <div class="card col-25" style="margin-right:10px;">
+                      <div class="card col-25" style="margin-right:10px;" ng-click="Escanear()">
                         <center><img src="img/icono-scanner.png" alt="" style="width: 60%;"></center>
-                        <button class="button button-block button-small button-dark activated" ng-click="Escanear()">Consultar Producto</button>
+                        <button class="button button-block button-small button-dark activated" >Consultar Producto</button>
                       </div>
-                      <div class="card col-25 col-offset-25">
+                      <div class="card col-25 col-offset-25" ng-click="BtnTomaInventario()"> 
                         <center><img src="img/icono-inventario.png" alt="" style="width: 60%;"></center>
-                        <button class="button button-block  button-small button-dark activated" ng-click="BtnTomaInventario()">Toma de inventario</button>
+                        <button class="button button-block  button-small button-dark activated" >Toma de inventario</button>
                       </div>
                   </div>
                   <div class="row">
-                    <div class="card col-25">
+                    <div class="card col-25" ng-click="BtnBuscarArticulo()">
                         <center><img src="img/icono-busqueda.png" alt="" style="width: 30%;"></center>
-                        <button class="button button-block button-small button-dark activated" ng-click="BtnBuscarArticulo()">Buscar Artículo</button>
+                        <button class="button button-block button-small button-dark activated" >Buscar Artículo</button>
                     </div>
                 </div>
               </div>

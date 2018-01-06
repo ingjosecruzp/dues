@@ -50,11 +50,11 @@ app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ion
 						   });}
 					}, function(error) {
 						// An error occurred
-							$ionicLoading.hide();
 							var alertPopup = $ionicPopup.alert({
 								title: 'Errorrr',
 								template: error
 							});
+							alertPopup.then(function(){$ionicLoading.hide(); $scope.ModalAgregarProducto.hide();});
 					});
 	        });
         }
