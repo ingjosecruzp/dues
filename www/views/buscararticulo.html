@@ -8,6 +8,21 @@
     <ion-content >
         <div style="height: 36px"></div>
         <div class="list list-inset">
+          <!-- div con imágen de inicio en pantalla de búsqueda -->
+          <div class="item mostrar" id="divteclado">
+            <center>
+                <img src="img/teclado.jpg" alt="" style="width:40%;">
+                <p>Teclea un producto en la barra de búsqueda</p>
+            </center>
+          </div>
+          <!-- div con imágen para búsquedas sin resultados -->
+          <div class="item oculto" id="divnoencontrado">
+              <center>
+                  <img src="img/noencontrado.png" alt="" style="width:40%;">
+                  <p>No se encontraron resultados</p>
+              </center>
+            </div>
+          <!-- Lista de artículos encontrados -->
           <a class="item" ng-repeat="articulo in Articulos" ng-click="select_item(articulo)">
             {{articulo.ItemName}}
             <!--<div class="item-icon-right" >

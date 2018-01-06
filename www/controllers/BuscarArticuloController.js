@@ -12,14 +12,29 @@ app.controller('BuscarArticuloController', function($scope,Usuario,articulo,$ion
 		$scope.searchQueryTemp=searchQuery;
 		$scope.Articulos=[];
 		$scope.$broadcast('scroll.infiniteScrollComplete');
+
+		var divteclado = angular.element( document.getElementById('divteclado') );
+
+		divteclado.removeClass('mostrar');
+		divteclado.addClass('oculto');
 	}
 	$scope.Buscar=function(searchQuery){
 		if(searchQuery.length < 3)
 				return;
 
 		articulo.query({method:'getArticulos',Nombre: searchQuery,Index: $scope.Articulos.length},function(respuesta){
-				if(respuesta.data.length==0)
+				if(respuesta.data.length==0){
 					$scope.InfiniteScroll=false;
+					console.log("No se encontraron articulos");
+					var divnoencontrado = angular.element( document.getElementById('divnoencontrado') );
+					divnoencontrado.removeClass('oculto');
+					divnoencontrado.addClass('mostrar');
+				} else{
+					console.log("Si se encontraron");
+					var divnoencontrado = angular.element( document.getElementById('divnoencontrado') );
+					divnoencontrado.removeClass('mostrar');
+					divnoencontrado.addClass('oculto');
+				}
 
 				respuesta.data.forEach(function(articulo) {
 					$scope.Articulos.push(articulo);
