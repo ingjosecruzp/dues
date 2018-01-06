@@ -1,30 +1,24 @@
 <ion-view name="login-view">
-  <ion-content class="padding">
-        <div class="row responsive-md">
-          <div class="col"></div>
-          <div class="col">
-            <div class="card">
-              <div class="item item-text-wrap">
-                  <div class="row">
-                      <div class="card col-25" style="margin-right:10px;" ng-click="Escanear()">
-                        <center><img src="img/icono-scanner.png" alt="" style="width: 60%;"></center>
-                        <button class="button button-block button-small button-dark activated" >Consultar Producto</button>
-                      </div>
-                      <div class="card col-25 col-offset-25" ng-click="BtnTomaInventario()"> 
-                        <center><img src="img/icono-inventario.png" alt="" style="width: 60%;"></center>
-                        <button class="button button-block  button-small button-dark activated" >Toma de inventario</button>
-                      </div>
-                  </div>
-                  <div class="row">
-                    <div class="card col-25" ng-click="BtnBuscarArticulo()">
-                        <center><img src="img/icono-busqueda.png" alt="" style="width: 30%;"></center>
-                        <button class="button button-block button-small button-dark activated" >Buscar Artículo</button>
-                    </div>
-                </div>
-              </div>
+  <ion-content>
+    <div class="col responsive-md" style="background-color:white;">
+        <div class="row">
+            <div class="card col-25" style="margin-right:5px; margin-left:5px;" ng-click="Escanear()">
+              <center><img src="img/icono-scanner.png" alt="" style="width: 30%;"></center>
+              <button class="button button-block button-small button-dark activated" >Consultar Producto</button>
             </div>
-          </div>
-          <div class="col"></div>
         </div>
+        <div class="row">
+            <div class="card col-25 col-offset-25" style="margin-right:5px; margin-left:5px;" ng-click="BtnTomaInventario()"> 
+              <center><img src="img/icono-inventario.png" alt="" style="width: 30%;"></center>
+              <button class="button button-block  button-small button-dark activated" >Toma de inventario</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card col-25" style="margin-right:5px; margin-left:5px;" ng-click="BtnBuscarArticulo()">
+                <center><img src="img/icono-busqueda.png" alt="" style="width: 30%;"></center>
+                <button class="button button-block button-small button-dark activated" >Buscar Artículo</button>
+            </div>
+        </div>
+    </div>
   </ion-content>
 </ion-view>
