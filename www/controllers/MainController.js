@@ -1,6 +1,7 @@
 app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ionicPlatform,$cordovaBarcodeScanner,$ionicPopup,articulo,$rootScope,$ionicLoading) {
     $scope.data = {};
-    $scope.Login={};
+	$scope.Login={};
+	$scope.Articulo={};
  
     $scope.Escanear = function() {
         try{
@@ -34,15 +35,17 @@ app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ion
 								noBackdrop :false,
 								template: '<ion-spinner icon="spiral"></ion-spinner><br>Buscando producto'
 							});
-							var vari=articulo.query({codigo:barcodeData.text},function(respuesta){
+							var vari=articulo.query({method:'getXCodigo',codigo:barcodeData.text},function(respuesta){
 								$ionicLoading.hide();
-								$scope.Articulo=respuesta[0];
+								$scope.Articulo=respuesta.data[0];
 				   
 								$rootScope.articulo=$scope.Articulo
+								console.log($rootScope.articulo);
 				   
 								$state.go('articulo.menuarticulo');
 								
 						   },function(error){
+								$ionicLoading.hide();
 								var alertPopup = $ionicPopup.alert({
 									title: 'Error',
 									template: error.headers("Error")
@@ -54,7 +57,6 @@ app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ion
 								title: 'Errorrr',
 								template: error
 							});
-							alertPopup.then(function(){$ionicLoading.hide(); $scope.ModalAgregarProducto.hide();});
 					});
 	        });
         }

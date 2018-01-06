@@ -343,20 +343,22 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                                     });}
                                     
                                ,function(error){
-                                console.log("Entre a error");
+                                    console.log("Entre a error");
+                                    $ionicLoading.hide();
                                     var alertPopup = $ionicPopup.alert({
                                         title: 'Error',
                                         template: error.headers("Error")
                                     });
+                                    alertPopup.then(function(){$scope.ModalAgregarProducto.hide();});
                                });}
                         }, function(error) {
                             // An error occurred
-                                
+                                $ionicLoading.hide();
                                 var alertPopup = $ionicPopup.alert({
                                     title: 'Errorrr',
                                     template: error
                                 });
-                                alertPopup.then(function(){$ionicLoading.hide(); $scope.ModalAgregarProducto.hide();});
+                                alertPopup.then(function(){$scope.ModalAgregarProducto.hide();});
                         });
                     
                 });
