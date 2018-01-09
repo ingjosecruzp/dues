@@ -44,7 +44,8 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                 PicturName:articulo.PicturName,
                 FechaHora:articulo.FechaHora,
                 InventarioId:articulo.InventarioId,
-                Numero:articulo.Numero
+                Numero:articulo.Numero,
+                ImagenBase64:articulo.ImagenBase64
             };
             //Convertir los datos que deben ser int en la BD porque vienen como cadenas
             $rootScope.member.idDetalle_Inventario=parseInt($rootScope.member.idDetalle_Inventario);
@@ -380,6 +381,10 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
             else{   //Código para guardar un nuevo producto cuando la cantidad se agregó
                 if($scope.indicadorModificar){  //Opción para guardar cambios de modificación
                     $scope.indicadorModificar=false;
+                    
+                    if($rootScope.member.NombreLote==null){$rootScope.member.TieneLote=false;}
+                    else{$rootScope.member.TieneLote=true;}
+
                     detalleinventario.update($rootScope.member, $rootScope.member).then(function(){
                         detalleinventario.get($rootScope.member.idDetalle_Inventario);
                         
@@ -392,6 +397,9 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                     });
                 }
                 else{   //Opción para guardar datos de nueva captura
+                    if($rootScope.member.NombreLote==null){$rootScope.member.TieneLote=false;}
+                    else{$rootScope.member.TieneLote=true;}
+
                     detalleinventario.add($rootScope.member).then(function(){$scope.ModalAgregarProducto.hide();});
                     
                     detalleinventario.all().then(function(productos){
@@ -422,6 +430,8 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                     //$scope.articulosGuardados[x].Numero=x+1;
                     $scope.articulosGuardados.push(producto);
                     producto.Numero=x+1;
+                    if(producto.NombreLote==null){producto.TieneLote=false;}
+                    else{producto.TieneLote=true;}
 
                     //OBTENCIÓN DE LA IMÁGEN DEL ARTÍCULO
                     //$scope.articulosGuardados[x].ImagenBase64="img/loading.gif";
@@ -446,11 +456,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                             });
                         });
                     }
-
-                    console.log($scope.articulosGuardados[x]);
-                    console.log("Imagen: "+$scope.articulosGuardados[x].ImagenBase64);
                     x++;
-                    console.log("x:"+x+" producto:"+producto);
                 });
             });
         }
