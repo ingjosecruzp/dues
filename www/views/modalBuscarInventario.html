@@ -1,0 +1,35 @@
+<div ng-controller="BuscarArticuloController">
+<div class="bar bar-header item-input-inset">
+    <label class="item-input-wrapper">
+      <i class="icon ion-ios-search placeholder-icon"></i>
+      <input type="search" placeholder="Buscar" ng-model="searchQuery" ng-enter="IniciarBusqueda(searchQuery);">
+    </label>
+</div>
+<ion-content style="background-color:white;">
+    <div style="height: 36px"></div>
+    <div class="list list-inset">
+      <!-- div con imágen de inicio en pantalla de búsqueda -->
+      <div class="item mostrar" id="divteclado">
+        <center>
+            <img src="img/teclado.jpg" alt="" style="width:40%;">
+            <p>Teclea un producto en la barra de búsqueda</p>
+        </center>
+      </div>
+      <!-- div con imágen para búsquedas sin resultados -->
+      <div class="item oculto" id="divnoencontrado">
+          <center>
+              <img src="img/noencontrado.png" alt="" style="width:40%;">
+              <p>No se encontraron resultados</p>
+          </center>
+        </div>
+      <!-- Lista de artículos encontrados -->
+      <a class="item" ng-repeat="articulo in Articulos" ng-click="agregarModal(articulo)">
+        {{articulo.ItemName}}
+        <!--<div class="item-icon-right" >
+            <i class="icon ion-ios-arrow-right"></i>
+        </div>-->
+      </a>
+      <ion-infinite-scroll ng-if="moreDataCanBeLoaded()" on-infinite="Buscar(searchQuery)" distance="1%"></ion-infinite-scroll>
+    </div>
+</ion-content>
+</div>
