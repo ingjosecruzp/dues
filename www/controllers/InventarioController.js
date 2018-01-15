@@ -51,7 +51,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
             $rootScope.member.idDetalle_Inventario=parseInt($rootScope.member.idDetalle_Inventario);
             $rootScope.member.Cantidad=parseInt($rootScope.member.Cantidad);
             $rootScope.member.InventarioId=parseInt($rootScope.member.InventarioId);
-            $scope.ModalAgregarProducto.show();
+            $rootScope.ModalAgregarProducto.show();
         }
 
 
@@ -70,12 +70,13 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                 if(res){
                     //Líneas de código para Escribir código
                     console.log("Entre a Escribir");
-                    $scope.OpcionEscribirCodigo();
+                    //$scope.OpcionEscribirCodigo();
+                    $rootScope.ModalBuscarProducto.show();
                 }else{
                     //Líneas de código para Escanear código
                     console.log("Entre a escanear");
                     $scope.Escanear();
-                    $scope.ModalAgregarProducto.show();
+                    $rootScope.ModalAgregarProducto.show();
 
                     //PRUEBA----------------------------------
                     /*var member = {
@@ -187,11 +188,11 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                             title: 'Error',
                             template: error.headers("Error")
                         });
-                        alertPopup.then(function(){$scope.ModalAgregarProducto.hide();});
+                        alertPopup.then(function(){$rootScope.ModalAgregarProducto.hide();});
                         $rootScope.member={};
                    });
 
-                    $scope.ModalAgregarProducto.show();
+                    $rootScope.ModalAgregarProducto.show();
                 }else{ return; }
             });
         }
@@ -239,7 +240,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                 if(res){
                     //Líneas de código para eliminar artículo
                     console.log("Capturar");
-                    $scope.ModalAgregarProducto.show();
+                    $rootScope.ModalAgregarProducto.show();
                     
                 }else{
                     //Líneas de código Modificar artículo
@@ -252,11 +253,19 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
 
         // Manda llamar el modal de agregar producto
         $ionicModal.fromTemplateUrl('views/ModalAgregarProducto.html', function(modal){
-            $scope.ModalAgregarProducto = modal;
+            $rootScope.ModalAgregarProducto = modal;
         }, {
             scope: $rootScope,
             animation: 'slide-in-up',
             controller: 'InventarioController'
+        });
+
+        // Manda llamar el modal de buscar producto
+        $ionicModal.fromTemplateUrl('views/modalBuscarInventario.html', function(modal){
+            $rootScope.ModalBuscarProducto = modal;
+        }, {
+            animation: 'slide-in-up',
+            controller: 'BuscarArticuloController'
         });
 
         //Función para mostrar u ocultar la caja de búsqueda
@@ -281,7 +290,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                         .scan()
                         .then(function(barcodeData) {
                             if(barcodeData.cancelled==true){
-                                $scope.ModalAgregarProducto.hide();
+                                $rootScope.ModalAgregarProducto.hide();
                                 return;
                             }else{
                             // Success! Barcode data is here
@@ -350,7 +359,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                                         title: 'Error',
                                         template: error.headers("Error")
                                     });
-                                    alertPopup.then(function(){$scope.ModalAgregarProducto.hide();});
+                                    alertPopup.then(function(){$rootScope.ModalAgregarProducto.hide();});
                                });}
                         }, function(error) {
                             // An error occurred
@@ -359,7 +368,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                                     title: 'Errorrr',
                                     template: error
                                 });
-                                alertPopup.then(function(){$scope.ModalAgregarProducto.hide();});
+                                alertPopup.then(function(){$rootScope.ModalAgregarProducto.hide();});
                         });
                     
                 });
@@ -392,7 +401,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                         $scope.articulosGuardados[posicion]=$rootScope.member;
     
                         $rootScope.member={};
-                        $scope.ModalAgregarProducto.hide();
+                        $rootScope.ModalAgregarProducto.hide();
                         return;
                     });
                 }
@@ -400,7 +409,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                     if($rootScope.member.NombreLote==null){$rootScope.member.TieneLote=false;}
                     else{$rootScope.member.TieneLote=true;}
 
-                    detalleinventario.add($rootScope.member).then(function(){$scope.ModalAgregarProducto.hide();});
+                    detalleinventario.add($rootScope.member).then(function(){$rootScope.ModalAgregarProducto.hide();});
                     
                     detalleinventario.all().then(function(productos){
                         productos.forEach(function(producto) {
@@ -417,7 +426,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
 
         $rootScope.btnCancelar = function(){
             $rootScope.member={};
-            $scope.ModalAgregarProducto.hide();
+            $rootScope.ModalAgregarProducto.hide();
         }
 
 
