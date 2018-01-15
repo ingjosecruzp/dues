@@ -1,6 +1,7 @@
 app.controller('ArticuloController', function($scope,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,articulo) {
     $scope.data = {};
 	$scope.Articulo={};
+	$scope.Largo=490;
  
 	$scope.Inicio=function(){
 		$scope.Articulo=$rootScope.articulo;
@@ -21,5 +22,23 @@ app.controller('ArticuloController', function($scope,Usuario,articulo,$ionicPopu
 					template: error.headers("Error")
 				});
 	   	});
+	 }
+
+	 
+	 $scope.LargoCarta=function(tipo){
+
+		 if(tipo=='datosGenerales'){
+			 $scope.Largo= 850;
+		 }
+		 else if(tipo=='datosVenta'){
+			 $scope.Largo= 1100;
+		 }
+		 else if(tipo=='datosCompra'){
+			 $scope.Largo= 700;
+		 }
+		 else if(tipo=='listaPrecios'){
+			 console.log('entre a lista de precios');
+			$scope.Largo= 1100;
+		 }
 	 }
 });
