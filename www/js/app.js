@@ -7,30 +7,42 @@ var db = null;  //Variable para la base de datos
 
 var app=angular.module('starter', ['ionic','ngResource','ngCordova'])
 
-app.run(function($ionicPlatform,$rootScope,$cordovaSQLite) {
+app.run(function($ionicPlatform,$rootScope,$cordovaSQLite,$state) {
   $rootScope.articulo = {};
 
   $ionicPlatform.ready(function(){
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-  // for form inputs)
-  if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    cordova.plugins.Keyboard.disableScroll(true);
-  }
-  if (window.StatusBar) {
-    // org.apache.cordova.statusbar required
-    StatusBar.styleDefault();
-  }
+    // for form inputs)
+    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      cordova.plugins.Keyboard.disableScroll(true);
+    }
+    if (window.StatusBar) {
+      // org.apache.cordova.statusbar required
+      StatusBar.styleDefault();
+    }
 
-  //Condición para crear la base de datos cuando la app comienza a correr
-  if(window.cordova) {
-    db = $cordovaSQLite.openDB({ name: "duesinventario.db", iosDatabaseLocation:'default'}); 
-  }
+    //Condición para crear la base de datos cuando la app comienza a correr
+    if(window.cordova) {
+      db = $cordovaSQLite.openDB({ name: "duesinventario.db", iosDatabaseLocation:'default'}); 
+    }
 
-  //Queries para crear las tablas de la base de datos
-  $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS inventario (idInventario INTEGER PRIMARY KEY AUTOINCREMENT,FechaInicio DATETIME,UsuarioId INTEGER,UUID VARCHAR (40),Modelo VARCHAR (20));');
-  $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS detalle_inventario (idDetalle_Inventario INTEGER PRIMARY KEY AUTOINCREMENT,ItemCode VARCHAR (45),ItemName VARCHAR (45),Codebars VARCHAR (45),Cantidad VARCHAR (45),NombreLote VARCHAR (45),PicturName VARCHAR (45),FechaHora DATETIME,InventarioId INTEGER);');
+    //Queries para crear las tablas de la base de datos
+    $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS inventario (idInventario INTEGER PRIMARY KEY AUTOINCREMENT,FechaInicio DATETIME,UsuarioId INTEGER,UUID VARCHAR (40),Modelo VARCHAR (20));');
+    $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS detalle_inventario (idDetalle_Inventario INTEGER PRIMARY KEY AUTOINCREMENT,ItemCode VARCHAR (45),ItemName VARCHAR (45),Codebars VARCHAR (45),Cantidad VARCHAR (45),NombreLote VARCHAR (45),PicturName VARCHAR (45),FechaHora DATETIME,InventarioId INTEGER);');
 
+    $ionicPlatform.onHardwareBackButton(function(event) {
+        if($state.current.name=="inventario"){
+          $rootScope.activarEscaner=false;
+          $rootScope.activarModificar=false;
+        }
+        /*event.preventDefault();
+        event.stopPropagation();*/
+        console.log("Entre a back button");
+        console.log($state.current.name);
+        console.log($state.current);
+        console.log($state);
+    });
   });
 });
 

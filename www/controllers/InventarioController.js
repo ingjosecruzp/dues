@@ -5,6 +5,8 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
     $scope.articulosGuardados=[];
     $rootScope.checkLote={};
     $rootScope.checkLote.check=false;
+    $rootScope.activarEscaner=true;
+    $rootScope.activarModificar=true;
     var x = 0;
 
         //Función que muestra un popup para eliminar o modificar un articulo
@@ -23,6 +25,11 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                     $scope.OpcionEliminarProducto(articulo);
                 }else{
                     //Líneas de código Modificar artículo
+                    if($rootScope.activarModificar==false){
+                        $rootScope.activarModificar=true;
+                        return;
+                    }
+
                     $scope.ModificarProducto(articulo);
                     console.log("Entre a Modificar");
                 }
@@ -61,7 +68,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
             var articuloPopup = $ionicPopup.confirm({
                 title: '¿Cómo desea realizar la captura?',
                 cancelText: 'Escanear código',
-                okText: 'Escribir código',
+                okText: 'Buscar producto',
                 okType: 'button-capturar',
                 cancelType: 'button-dark'
             });
@@ -74,6 +81,10 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                     $rootScope.ModalBuscarProducto.show();
                 }else{
                     //Líneas de código para Escanear código
+                    if($rootScope.activarEscaner==false){
+                        $rootScope.activarEscaner=true;
+                        return;
+                    }
                     console.log("Entre a escanear");
                     $scope.Escanear();
                     $rootScope.ModalAgregarProducto.show();
