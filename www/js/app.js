@@ -36,6 +36,15 @@ app.run(function($ionicPlatform,$rootScope,$cordovaSQLite,$state) {
           $rootScope.activarEscaner=false;
           $rootScope.activarModificar=false;
         }
+
+        if($state.current.name=="articulo.datosgenerales" ||
+           $state.current.name=="articulo.datoscompra" ||
+           $state.current.name=="articulo.datosventa" ||
+           $state.current.name=="login"){
+            document.getElementById("Carta").style.height="490px";
+            console.log("Cambie tamaño");
+            console.log(document.getElementById("Carta").style.height);
+           }
         /*event.preventDefault();
         event.stopPropagation();*/
         console.log("Entre a back button");
