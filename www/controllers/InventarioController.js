@@ -9,6 +9,8 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
     $rootScope.activarModificar=true;
     var x = 0;
 
+    $scope.cajaBuscarInventario;
+
         //Función que muestra un popup para eliminar o modificar un articulo
         $scope.OpcionProducto = function(articulo){
             var articuloPopup = $ionicPopup.confirm({
