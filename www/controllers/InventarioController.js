@@ -1,4 +1,4 @@
-app.controller('InventarioController', function($scope,$ionicLoading,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,$ionicModal,articulo,inventario,detalleinventario,$cordovaBarcodeScanner, $ionicPlatform) {
+app.controller('InventarioController', function($scope,$ionicLoading,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,$ionicModal,articulo,inventario,detalleinventario,$cordovaBarcodeScanner,$ionicPlatform,inventarios,Servicios) {
     
     $scope.codigoCapturado={};
     $scope.indicadorModificar=false;
@@ -251,7 +251,24 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                 if(res){
                     //Líneas de código para eliminar artículo
                     console.log("Capturar");
-                    $rootScope.ModalAgregarProducto.show();
+                    console.log($scope.articulosGuardados);
+                    
+
+                    //Ajusta la fecha para que pueda ser aceptada por el wcf
+                    $scope.articulosGuardados.forEach(function(producto) {
+                        producto.FechaHora=Servicios.convertToJSONDate(producto.FechaHora);
+                    });
+
+                    var newInventario = new inventarios({
+                        idInventario:0,
+                        FechaInicio :Servicios.convertToJSONDate(FechaInicio),
+                        UsuarioId   :0,
+                        UUID        :"0000000",
+                        Modelo      :"Motorola",
+                        detalle_inventario : $scope.articulosGuardados});
+                    console.log(newInventario);
+                    newInventario.$save();
+                    //$rootScope.ModalAgregarProducto.show();
                     
                 }else{
                     //Líneas de código Modificar artículo
