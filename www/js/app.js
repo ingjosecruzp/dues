@@ -168,9 +168,9 @@ app.run(function($ionicPlatform) {
 
 //Variables Globales
 app.value('Variables',{
-  //IpServidor: '192.168.0.104:8080'
+  IpServidor: '172.16.5.78:8080'
   //IpServidor: 'localhost:8080'
-  IpServidor: 'duestextil.fortiddns.com:8020/WcfDues'
+  //IpServidor: 'duestextil.fortiddns.com:8020/WcfDues'
 });
 
 //Directiva para usar el boto serar y go del celular
@@ -211,5 +211,10 @@ app.service('Servicios', function() {
 
                 return value; 
             });
+    };
+    this.convertToJSONDate=function(strDate){
+      var dt = new Date(strDate);
+      var newDate = new Date(Date.UTC(dt.getFullYear(), dt.getMonth(), dt.getDate(), dt.getHours(), dt.getMinutes(), dt.getSeconds(), dt.getMilliseconds()));
+      return '/Date(' + newDate.getTime() + ')/';
     };
 });
