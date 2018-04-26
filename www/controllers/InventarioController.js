@@ -9,6 +9,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
     $rootScope.activarModificar=true;
     var x = 0;
     $rootScope.separadorBarra=50;
+    $rootScope.txtbtnModal;
 
     $scope.cajaBuscarInventario;
 
@@ -30,6 +31,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                 }else{
                     //Líneas de código Modificar artículo
                     if($rootScope.activarModificar==false){
+                        $rootScope.txtbtnModal="Modificar";
                         $rootScope.activarModificar=true;
                         return;
                     }
@@ -82,6 +84,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                     //Líneas de código para Escribir código
                     console.log("Entre a Escribir");
                     //$scope.OpcionEscribirCodigo();
+                    $rootScope.txtbtnModal="Agregar";
                     $rootScope.ModalBuscarProducto.show();
                 }else{
                     //Líneas de código para Escanear código
@@ -91,6 +94,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                     }
                     console.log("Entre a escanear");
                     $scope.Escanear();
+                    $rootScope.txtbtnModal="Agregar";
                     $rootScope.ModalAgregarProducto.show();
 
                     //PRUEBA----------------------------------
@@ -321,7 +325,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
             try{
                $ionicPlatform.ready(function () {
                     $cordovaBarcodeScanner
-                        .scan()
+                        .scan({orientation : "portrait"})
                         .then(function(barcodeData) {
                             if(barcodeData.cancelled==true){
                                 $rootScope.ModalAgregarProducto.hide();
