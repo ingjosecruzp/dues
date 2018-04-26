@@ -8,12 +8,14 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
     $rootScope.activarEscaner=true;
     $rootScope.activarModificar=true;
     var x = 0;
+    $rootScope.separadorBarra=50;
 
     $scope.cajaBuscarInventario;
 
         //Función que muestra un popup para eliminar o modificar un articulo
         $scope.OpcionProducto = function(articulo){
             var articuloPopup = $ionicPopup.confirm({
+                title: 'Opciones',
                 cancelText: 'Modificar',
                 okText: 'Eliminar',
                 okType: 'button-assertive',
@@ -306,10 +308,12 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
             if(contenedor.hasClass('mostrado')==true){
                 contenedor.removeClass('mostrado');
                 contenedor.addClass('oculto');
+                $rootScope.separadorBarra=50;
             }
             else if(contenedor.hasClass('oculto')==true){			
                 contenedor.removeClass('oculto');
                 contenedor.addClass('mostrado');
+                $rootScope.separadorBarra=100;
             }
         }
 

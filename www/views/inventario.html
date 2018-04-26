@@ -5,19 +5,18 @@
         <button class="button button-icon ion-ios-search pull-right" style="margin-right: 5%;" ng-click="AbrirBusqueda()"></i>
         <button class="button button-icon ion-android-more-vertical"></i>
     </div>
+    <div class="item-input-inset oculto bar bar-subheader" id="cajaBusqueda">
+        <label class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" placeholder="Buscar" ng-model="cajaBuscarInventario">
+        </label>
+    </div>
 
     <!-- Contenido central -->
     <ion-content style="background-color:white;">
         <!-- Div para evitar que el content quede bajo el header-->
-        <div style="height: 50px"></div>
-        
-        <div class="item-input-inset oculto" id="cajaBusqueda">
-                <label class="item-input-wrapper">
-                    <i class="icon ion-ios-search placeholder-icon"></i>
-                    <input type="search" placeholder="Buscar" ng-model="cajaBuscarInventario">
-                </label>
-        </div>
-        
+    
+        <div style="height:{{separadorBarra}}px;"></div>
         <div>
 
             <!-- Comienzo de lista de artículos-->
@@ -49,6 +48,7 @@
         </div>
         
     </ion-content>
+    
 
     <!-- Float button -->
     <div class="float-button">
