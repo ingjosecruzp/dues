@@ -24,7 +24,9 @@
         </div>
       <!-- Lista de artículos encontrados -->
       <a class="item" ng-repeat="articulo in Articulos" ng-click="agregarModal(articulo)">
-        {{articulo.ItemName}}
+        <b>{{articulo.ItemCode}}</b><br>
+        <div style="word-wrap: break-word; width:100px;">{{articulo.ItemName}}</div> 
+        
         <!--<div class="item-icon-right" >
             <i class="icon ion-ios-arrow-right"></i>
         </div>-->
