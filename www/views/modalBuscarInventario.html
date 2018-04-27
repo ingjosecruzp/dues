@@ -23,14 +23,10 @@
           </center>
         </div>
       <!-- Lista de artículos encontrados -->
-      <a class="item" ng-repeat="articulo in Articulos" ng-click="agregarModal(articulo)">
-        <b>{{articulo.ItemCode}}</b><br>
-        <div style="word-wrap: break-word; width:100px;">{{articulo.ItemName}}</div> 
-        
-        <!--<div class="item-icon-right" >
-            <i class="icon ion-ios-arrow-right"></i>
-        </div>-->
-      </a>
+      <div class="item item-text-wrap" ng-repeat="articulo in Articulos" ng-click="agregarModal(articulo)">
+        <b>{{articulo.CodeBars}}</b><br>
+        {{articulo.ItemName}}
+      </div>
       <ion-infinite-scroll ng-if="moreDataCanBeLoaded()" on-infinite="Buscar(searchQuery)" distance="1%"></ion-infinite-scroll>
     </div>
 </ion-content>
