@@ -31,7 +31,6 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                 }else{
                     //Líneas de código Modificar artículo
                     if($rootScope.activarModificar==false){
-                        $rootScope.txtbtnModal="Modificar";
                         $rootScope.activarModificar=true;
                         return;
                     }
@@ -64,6 +63,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
             $rootScope.member.idDetalle_Inventario=parseInt($rootScope.member.idDetalle_Inventario);
             $rootScope.member.Cantidad=parseInt($rootScope.member.Cantidad);
             $rootScope.member.InventarioId=parseInt($rootScope.member.InventarioId);
+            $rootScope.txtbtnModal="Modificar";
             $rootScope.ModalAgregarProducto.show();
         }
 
@@ -210,7 +210,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                         alertPopup.then(function(){$rootScope.ModalAgregarProducto.hide();});
                         $rootScope.member={};
                    });
-
+                    $rootScope.txtbtnModal="Agregar";
                     $rootScope.ModalAgregarProducto.show();
                 }else{ return; }
             });
@@ -491,16 +491,18 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                     else{
                         $scope.posimagenes=x;
                         //articulo.query({method:'getImagen',Imagen:$scope.articulosGuardados[x].PicturName},function(respuesta){
+                        producto.ImagenBase64="img/camera.png";
                         articulo.query({method:'getImagen',Imagen:producto.PicturName},function(respuesta){
                                 console.log(respuesta);
                                 //$scope.articulosGuardados[x].ImagenBase64="data:image/png;base64," + respuesta.data[0];
                                 //$scope.imagenes.push(respuesta.data[0]);
                                 producto.ImagenBase64="data:image/png;base64," + respuesta.data[0];
                             },function(error){
-                            var alertPopup = $ionicPopup.alert({
-                                title: 'Error',
-                                template: error.headers("Error")
-                            });
+                                /*var alertPopup = $ionicPopup.alert({
+                                    title: 'Error',
+                                    template: error.headers("Error")
+                                });*/
+                                console.log("Error: "+error.headers("Error"));
                         });
                     }
                     x++;
