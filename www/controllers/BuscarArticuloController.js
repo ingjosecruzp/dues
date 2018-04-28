@@ -100,10 +100,12 @@ app.controller('BuscarArticuloController', function($scope,Usuario,articulo,$ion
 				console.log(respuesta);
 				$rootScope.member.ImagenBase64="data:image/png;base64," + respuesta.data[0];
 			},function(error){
+				console.log(error);
+				/*
 			var alertPopup = $ionicPopup.alert({
 				title: 'Error',
 				template: error.headers("Error")
-			});
+			});*/
 		});
 
 		console.log("Se agregó el articulo buscado por nombre");
