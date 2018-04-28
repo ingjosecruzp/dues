@@ -18,7 +18,7 @@
     <ion-content style="background-color:white;">
         <!-- Div para evitar que el content quede bajo el header-->
     
-        <div style="height:{{separadorBarra}}px;"></div>
+        <div ng-style="{'height': separadorBarra}"></div>
         <div>
 
             <!-- Comienzo de lista de artículos-->
@@ -43,7 +43,7 @@
             </div>
             <!-- Fin de lista de artículos-->
             <div class="list" ng-show="eliminando">
-                <div class="item item-thumbnail-left item-text-wrap" style="text-align: justify;" ng-click="" ng-repeat="articulo in articulosGuardados | filter: cajaBuscarInventario">
+                <div class="item item-thumbnail-left item-text-wrap" style="text-align: justify;" ng-style="{'background-color': articulo.fondo}" ng-click="" ng-repeat="articulo in articulosGuardados | filter: cajaBuscarInventario">
                     <img src="{{articulo.ImagenBase64}}" alt="">
                     <h2 style="margin-bottom:6px;"> 
                     <div style="float:left; 

@@ -8,7 +8,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
     $rootScope.activarEscaner=true;
     $rootScope.activarModificar=true;
     var x = 0;
-    $rootScope.separadorBarra=50;
+    $rootScope.separadorBarra="50px";
     $rootScope.txtbtnModal;
 
     $scope.cajaBuscarInventario;
@@ -313,12 +313,12 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
             if(contenedor.hasClass('mostrado')==true){
                 contenedor.removeClass('mostrado');
                 contenedor.addClass('oculto');
-                $rootScope.separadorBarra=50;
+                $rootScope.separadorBarra="50px";
             }
             else if(contenedor.hasClass('oculto')==true){			
                 contenedor.removeClass('oculto');
                 contenedor.addClass('mostrado');
-                $rootScope.separadorBarra=100;
+                $rootScope.separadorBarra="100px";
                 $timeout(function() {
                     document.getElementById("inputBuscar").focus(); 
                 },5);
@@ -477,6 +477,8 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
         $scope.IniciarInventario = function(){
             detalleinventario.all().then(function(productos){
                 productos.forEach(function(producto) {
+                    producto.fondo="white";
+                    producto.seleccionado=false;
                     //$scope.articulosGuardados[x]=producto;
                     //$scope.articulosGuardados[x].Numero=x+1;
                     $scope.articulosGuardados.push(producto);
@@ -527,7 +529,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
             var contenedor = angular.element( document.getElementById('cajaBusqueda') );
             contenedor.removeClass('mostrado');
             contenedor.addClass('oculto');
-            $rootScope.separadorBarra=50;
+            $rootScope.separadorBarra="50px";
         }
 
         //Función para cancelar selección multiple
