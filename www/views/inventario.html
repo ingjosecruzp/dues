@@ -2,14 +2,16 @@
     <!-- Cabecera -->
     <div class="bar bar-header bar-dark" style="background-color:black">
         <h1 class="title">Inventario</h1>
-        <button class="button button-icon ion-ios-search pull-right" style="margin-right: 5%;" ng-click="AbrirBusqueda()"></i>
-        <button class="button button-icon ion-android-more-vertical"></i>
+        <i id="noEliminando" style="margin-right: 10%; width:5%;" class="button button-icon ion-ios-search" ng-click="AbrirBusqueda()"></i>
+        <i id="noEliminando2" class="button button-icon ion-ios-checkmark-outline pull-right" ng-click="activarSeleccionar()"></i>
+
+        <i id="siEliminando" style="display: none; margin-right: 20%;" class="button button-icon ion-ios-undo pull-right" ng-click="desactivarSeleccionar()"></i>
+        <i id="siEliminando2" style="display: none; margin-right: 8%;" class="button button-icon ion-android-done-all pull-right"></i>
+        <i id="siEliminando3" style="display: none;" class="button button-icon ion-trash-a pull-right"></i>
     </div>
     <div class="item-input-inset oculto bar bar-subheader" id="cajaBusqueda">
-        <label class="item-input-wrapper">
-            <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="search" placeholder="Buscar" ng-model="cajaBuscarInventario">
-        </label>
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input id="inputBuscar" type="search" placeholder="Buscar" ng-model="cajaBuscarInventario">
     </div>
 
     <!-- Contenido central -->
@@ -20,7 +22,8 @@
         <div>
 
             <!-- Comienzo de lista de artículos-->
-            <div class="list">
+            <!-- Lista normal de productos -->
+            <div class="list" ng-hide="eliminando">
                 <div class="item item-thumbnail-left item-text-wrap" style="text-align: justify;" ng-click="OpcionProducto(articulo)" ng-repeat="articulo in articulosGuardados | filter: cajaBuscarInventario">
                     <img src="{{articulo.ImagenBase64}}" alt="">
                     <h2 style="margin-bottom:6px;"> 
@@ -36,10 +39,28 @@
                     <p style="float:left;"><b>Cantidad:</b> {{articulo.Cantidad}}</p>
                     <p style="text-align:right;"><b ng-show="articulo.TieneLote">Lote:</b> {{articulo.NombreLote}}</p>
                     <p class="pull-right" style="text-align:right;"><b>Fecha:</b> {{articulo.FechaHora}}</p>
-                </div>
-                
+                </div>     
             </div>
             <!-- Fin de lista de artículos-->
+            <div class="list" ng-show="eliminando">
+                <div class="item item-thumbnail-left item-text-wrap" style="text-align: justify;" ng-click="" ng-repeat="articulo in articulosGuardados | filter: cajaBuscarInventario">
+                    <img src="{{articulo.ImagenBase64}}" alt="">
+                    <h2 style="margin-bottom:6px;"> 
+                    <div style="float:left; 
+                    border-radius:100%; 
+                    background-color:lightgray;
+                    width:25px; height: 25px; 
+                    text-align:center; 
+                    margin-right:10px;
+                    "><p style="font-size:10px; color:black; margin-top:5px;">{{articulo.Numero}}</p></div> 
+                    {{articulo.ItemCode}} Eliminando</h2>
+                    <p>{{articulo.ItemName}}</p>
+                    <p style="float:left;"><b>Cantidad:</b> {{articulo.Cantidad}}</p>
+                    <p style="text-align:right;"><b ng-show="articulo.TieneLote">Lote:</b> {{articulo.NombreLote}}</p>
+                    <p class="pull-right" style="text-align:right;"><b>Fecha:</b> {{articulo.FechaHora}}</p>
+                </div>     
+            </div>
+            <!-- Lista de productos para eliminar -->
             
             <!-- Div para evitar que el content quede bajo el footer-->
             <div style="height: 50px;"></div>

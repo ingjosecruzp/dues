@@ -1,4 +1,4 @@
-app.controller('InventarioController', function($scope,$ionicLoading,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,$ionicModal,articulo,inventario,detalleinventario,$cordovaBarcodeScanner,$ionicPlatform,inventarios,Servicios) {
+app.controller('InventarioController', function($scope,$ionicLoading,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,$ionicModal,articulo,inventario,detalleinventario,$cordovaBarcodeScanner,$ionicPlatform,inventarios,Servicios,$timeout) {
     
     $scope.codigoCapturado={};
     $scope.indicadorModificar=false;
@@ -12,6 +12,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
     $rootScope.txtbtnModal;
 
     $scope.cajaBuscarInventario;
+    $scope.eliminando=false;
 
         //Función que muestra un popup para eliminar o modificar un articulo
         $scope.OpcionProducto = function(articulo){
@@ -318,6 +319,9 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                 contenedor.removeClass('oculto');
                 contenedor.addClass('mostrado');
                 $rootScope.separadorBarra=100;
+                $timeout(function() {
+                    document.getElementById("inputBuscar").focus(); 
+                },5);
             }
         }
 
@@ -325,7 +329,7 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
             try{
                $ionicPlatform.ready(function () {
                     $cordovaBarcodeScanner
-                        .scan({orientation : "portrait"})
+                        .scan({orientation : "portrait", showTorchButton: true})
                         .then(function(barcodeData) {
                             if(barcodeData.cancelled==true){
                                 $rootScope.ModalAgregarProducto.hide();
@@ -508,6 +512,32 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                     x++;
                 });
             });
+        }
+
+        //Función para iniciar selección multiple
+        $scope.activarSeleccionar = function(){
+            $scope.eliminando=true;
+
+            document.getElementById("noEliminando").style.display = "none";
+            document.getElementById("noEliminando2").style.display = "none";
+            document.getElementById("siEliminando").style.display = "block";
+            document.getElementById("siEliminando2").style.display = "block";
+            document.getElementById("siEliminando3").style.display = "block";
+            
+            var contenedor = angular.element( document.getElementById('cajaBusqueda') );
+            contenedor.removeClass('mostrado');
+            contenedor.addClass('oculto');
+            $rootScope.separadorBarra=50;
+        }
+
+        //Función para cancelar selección multiple
+        $scope.desactivarSeleccionar = function(){
+            $scope.eliminando=false;
+            document.getElementById("noEliminando").style.display = "block";
+            document.getElementById("noEliminando2").style.display = "block";
+            document.getElementById("siEliminando").style.display = "none";
+            document.getElementById("siEliminando2").style.display = "none";
+            document.getElementById("siEliminando3").style.display = "none";
         }
 
         
