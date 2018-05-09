@@ -1,5 +1,6 @@
 app.controller('BuscarArticuloController', function($scope,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,articulo,$ionicLoading,$ionicScrollDelegate) {
-    $scope.data = {};
+	$scope.opcionBusqueda="codigo";
+	$scope.data = {};
 	$scope.Articulos=[];
 	$scope.InfiniteScroll=false;
 	//Variables temporal para guardar la busqueda acutal y poder comparar
@@ -23,7 +24,13 @@ app.controller('BuscarArticuloController', function($scope,Usuario,articulo,$ion
 		if(searchQuery.length < 3)
 				return;
 
-		articulo.query({method:'getArticulos',Nombre: searchQuery,Index: $scope.Articulos.length},function(respuesta){
+		var tipoBusqueda;
+		if($scope.opcionBusqueda=="codigo")	tipoBusqueda=1;	//Tipo 1 busca por itemCode
+		else if($scope.opcionBusqueda=="descripcion") tipoBusqueda=0;	//Tipo 0 busca por itemName
+
+		console.log("Buscando por: "+tipoBusqueda);
+
+		articulo.query({method:'getArticulos',Nombre: searchQuery,Index: $scope.Articulos.length, Tipo: tipoBusqueda},function(respuesta){
 				if(respuesta.data.length==0){
 					$scope.InfiniteScroll=false;
 					console.log("No se encontraron articulos");
@@ -42,6 +49,11 @@ app.controller('BuscarArticuloController', function($scope,Usuario,articulo,$ion
 				});
 				$ionicScrollDelegate.resize() 
 				$scope.$broadcast('scroll.infiniteScrollComplete');
+
+				if($scope.Articulos.length>0){
+					divnoencontrado.removeClass('mostrar');
+					divnoencontrado.addClass('oculto');
+				}
 			},function(error){
 				$ionicLoading.hide();
 				$ionicPopup.alert({
@@ -50,9 +62,11 @@ app.controller('BuscarArticuloController', function($scope,Usuario,articulo,$ion
 				});
    		});
 	 }
+
 	 $scope.moreDataCanBeLoaded=function(){
 		 return $scope.InfiniteScroll;
 	 }
+
 	 $scope.select_item = function (articulo) {
 		console.log(articulo);
 		$rootScope.articulo=articulo

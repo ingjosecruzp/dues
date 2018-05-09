@@ -5,7 +5,11 @@
       <input type="search" placeholder="Buscar" ng-model="searchQuery" ng-enter="IniciarBusqueda(searchQuery);">
     </label>
 </div>
-<ion-content style="background-color:white;">
+<div class="bar" style="height:auto;">
+  <ion-radio style="width:50%;" ng-model="opcionBusqueda" ng-value="'codigo'">Código</ion-radio>
+  <ion-radio style="width:50%;" ng-model="opcionBusqueda" ng-value="'descripcion'">Descripción</ion-radio>
+</div>
+<ion-content style="background-color:white; margin-top:50px;">
     <div style="height: 36px"></div>
     <div class="list list-inset">
       <!-- div con imágen de inicio en pantalla de búsqueda -->

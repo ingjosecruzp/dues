@@ -542,6 +542,83 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
             document.getElementById("siEliminando3").style.display = "none";
         }
 
+        $scope.seleccionarUno=function(index){
+            if($scope.articulosGuardados[index].seleccionado==false){
+                //$scope.articulosGuardados[index].fondo="#c9ddfc";
+                $scope.articulosGuardados[index].fondo="#dbe8ff";
+                $scope.articulosGuardados[index].seleccionado=true;
+            } else{
+                $scope.articulosGuardados[index].fondo="white";
+                $scope.articulosGuardados[index].seleccionado=false;
+            }
+        }
+
+        $scope.seleccionarTodo=function(){
+            console.log("Seleccionando todo");
+            var s=false;
+            for(x=0; x<$scope.articulosGuardados.length; x++){
+                if($scope.articulosGuardados[x].seleccionado==true){
+                    s=true;
+                    x=$scope.articulosGuardados.length;
+                }
+            }
+
+            if(s==true){
+                for(x=0; x<$scope.articulosGuardados.length; x++){
+                    $scope.articulosGuardados[x].seleccionado=false;
+                    $scope.articulosGuardados[x].fondo="white";
+                }
+            } else{
+                for(x=0; x<$scope.articulosGuardados.length; x++){
+                    $scope.articulosGuardados[x].seleccionado=true;
+                    $scope.articulosGuardados[x].fondo="#dbe8ff";
+                }
+            }
+        }
+
+        $scope.eliminarSeleccionados = function(){
+            
+            var articuloPopup = $ionicPopup.confirm({
+                title:'¿Desea eliminar los productos de la lista de inventario?', 
+                template: '<p style="text-align: center;">Una vez eliminado no se podrá recuperar</p>',
+                cancelText: 'Cancelar',
+                okText: 'Confirmar',
+                okType: 'button-confirmar',
+                cancelType: 'button-cancelar'
+            });
+
+            articuloPopup.then(function(res){
+                if(res){
+                    //Líneas de código para eliminar artículo
+                    var i=0;
+                    var terminado = false; 
+
+                    while(terminado==false){
+                        while(i<$scope.articulosGuardados.length){
+                            if($scope.articulosGuardados[i].seleccionado==true){
+                                console.log("Eliminando");
+                                console.log($scope.articulosGuardados[i]);
+                                detalleinventario.remove($scope.articulosGuardados[i]);
+                                $scope.articulosGuardados.splice(i,1);
+                                
+                                i++;
+                                break;
+                            }
+                        }
+
+                        if(i>=$scope.articulosGuardados.length){terminado=true;}
+                    }
+
+                    var x=1;
+                    $scope.articulosGuardados.forEach(function(producto) {
+                        producto.Numero=x;
+                        x++;
+                    });
+
+                }else{ return; }
+            });
+        }
+
         
         /*$scope.AgregarProducto = function(){
             //Lineas de código para agregar un producto
