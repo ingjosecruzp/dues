@@ -1,4 +1,4 @@
-app.controller('InventarioController', function($scope,$ionicLoading,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,$ionicModal,articulo,inventario,detalleinventario,$cordovaBarcodeScanner,$ionicPlatform,inventarios,Servicios,$timeout) {
+app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoading,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,$ionicModal,articulo,inventario,detalleinventario,$cordovaBarcodeScanner,$ionicPlatform,inventarios,Servicios,$timeout) {
     
     $scope.codigoCapturado={};
     $scope.indicadorModificar=false;
@@ -450,18 +450,18 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
                 else{   //Opción para guardar datos de nueva captura
                     if($rootScope.member.NombreLote==null){$rootScope.member.TieneLote=false;}
                     else{$rootScope.member.TieneLote=true;}
-
-                    detalleinventario.add($rootScope.member).then(function(){$rootScope.ModalAgregarProducto.hide();});
                     
-                    detalleinventario.all().then(function(productos){
-                        productos.forEach(function(producto) {
-                            console.log(producto);
-                        });
+                    detalleinventario.add($rootScope.member).then(function(producto){
+                        console.log(producto.insertId);
+                        $rootScope.member.idDetalle_Inventario=producto.insertId;
+        
+                        $rootScope.member.Numero=$scope.articulosGuardados.length+1;
+                        $scope.articulosGuardados.push($rootScope.member);
+                        $rootScope.member={};
+
+                        $rootScope.ModalAgregarProducto.hide();
                     });
-    
-                    $rootScope.member.Numero=$scope.articulosGuardados.length+1;
-                    $scope.articulosGuardados.push($rootScope.member);
-                    $rootScope.member={};
+
                 }
             }
         }
@@ -590,25 +590,35 @@ app.controller('InventarioController', function($scope,$ionicLoading,Usuario,art
             articuloPopup.then(function(res){
                 if(res){
                     //Líneas de código para eliminar artículo
-                    var i=0;
-                    var terminado = false; 
+                    var lista="";
+                    var respaldo=[];
 
-                    while(terminado==false){
-                        while(i<$scope.articulosGuardados.length){
-                            if($scope.articulosGuardados[i].seleccionado==true){
-                                console.log("Eliminando");
-                                console.log($scope.articulosGuardados[i]);
-                                detalleinventario.remove($scope.articulosGuardados[i]);
-                                $scope.articulosGuardados.splice(i,1);
-                                
-                                i++;
-                                break;
-                            }
-                        }
+                    var articulosSeleccionados=$scope.articulosGuardados.filter(x => x.seleccionado==true);
+                    console.log(articulosSeleccionados);
 
-                        if(i>=$scope.articulosGuardados.length){terminado=true;}
+                    articulosSeleccionados.forEach(function(articulo){
+                        lista=lista + articulo.idDetalle_Inventario +",";
+                        $scope.articulosGuardados.splice($scope.articulosGuardados.indexOf(articulo),1);
+                    });
+
+                    /*for(x=0; x<$scope.articulosGuardados.length;  x++){
+                        if($scope.articulosGuardados[x].seleccionado==true)
+                            lista=lista + $scope.articulosGuardados[x].idDetalle_Inventario +",";
+                        else     
+                            respaldo.push($scope.articulosGuardados[x]);
                     }
 
+                    $scope.articulosGuardados=respaldo;*/
+
+                    //Quita la última coma de la lista de articulos a eliminar
+                    if(lista.length>0)  lista=lista.substr(0,lista.length-1);
+                    console.log(lista);
+
+                    //Ejecuta la query de eliminación de la bd
+                    var querysql = 'DELETE FROM detalle_inventario WHERE idDetalle_Inventario IN ('+lista+')'
+                    $cordovaSQLite.execute(db, querysql);
+
+                    //Reasigna números a la lista de artículos
                     var x=1;
                     $scope.articulosGuardados.forEach(function(producto) {
                         producto.Numero=x;

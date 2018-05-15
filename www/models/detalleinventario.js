@@ -27,6 +27,15 @@ app.factory('detalleinventario', function($cordovaSQLite, DBA) {
       var parameters = [member.idDetalle_Inventario];
       return DBA.query("DELETE FROM detalle_inventario WHERE idDetalle_Inventario = (?)", parameters);
     }
+
+    self.removeMany = function(lista) {
+      console.log("Eliminando de db");
+      
+     // var parameters = [lista];
+      var parameters = ["4,5,6"];
+      console.log(parameters);
+      return DBA.query("DELETE FROM detalle_inventario WHERE idDetalle_Inventario IN (?)", parameters);
+    }
   
     self.update = function(origMember, editMember) {
       var parameters = [editMember.ItemCode,editMember.ItemName,editMember.Codebars,editMember.Cantidad,editMember.NombreLote,editMember.PicturName,editMember.FechaHora,editMember.InventarioId, origMember.idDetalle_Inventario];
