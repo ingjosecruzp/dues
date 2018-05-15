@@ -118,6 +118,15 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider){
           }
         }
       })
+      .state('articulo.listaprecios', {
+        url: '/listaprecios',
+        views:{
+          'submenu': {
+            templateUrl: 'views/listaprecios.html',
+            controller: 'ListaPreciosController'
+          }
+        }
+      })
       .state('articulo.datosgenerales', {
         url: '/datosgenerales',
         views:{
@@ -168,7 +177,7 @@ app.run(function($ionicPlatform) {
 
 //Variables Globales
 app.value('Variables',{
-  IpServidor: '192.168.0.103:8080'
+  IpServidor: '192.168.0.104:8080'
   //IpServidor: '200.52.220.238:8082'
   //IpServidor: '172.16.5.78:8080'
   //IpServidor: 'localhost:8080'

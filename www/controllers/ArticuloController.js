@@ -36,7 +36,8 @@ app.controller('ArticuloController', function($scope,Usuario,articulo,$ionicPopu
 			document.getElementById("Carta").style.height="700px";
 		 }
 		 else if(tipo=='listaPrecios'){
-			document.getElementById("Carta").style.height="1100px";
+			document.getElementById("Carta").style.height="900px";
+			console.log("1200px");
 		 }
 	 }
 });
