@@ -35,9 +35,13 @@ app.controller('ArticuloController', function($scope,Usuario,articulo,$ionicPopu
 		 else if(tipo=='datosCompra'){
 			document.getElementById("Carta").style.height="700px";
 		 }
+		 else if(tipo=='datosInventario'){
+			document.getElementById("Carta").style.height="700px";
+		 }
 		 else if(tipo=='listaPrecios'){
 			document.getElementById("Carta").style.height="900px";
 			console.log("1200px");
 		 }
+
 	 }
 });
