@@ -25,6 +25,7 @@ app.controller('ArticuloController', function($scope,Usuario,articulo,$ionicPopu
 
 	 
 	 $scope.LargoCarta=function(tipo){
+		 console.log("PRueba");
 
 		 if(tipo=='datosGenerales'){
 			document.getElementById("Carta").style.height="850px";
@@ -36,7 +37,7 @@ app.controller('ArticuloController', function($scope,Usuario,articulo,$ionicPopu
 			document.getElementById("Carta").style.height="700px";
 		 }
 		 else if(tipo=='datosInventario'){
-			document.getElementById("Carta").style.height="700px";
+			document.getElementById("Carta").style.height="500px";
 		 }
 		 else if(tipo=='listaPrecios'){
 			document.getElementById("Carta").style.height="900px";

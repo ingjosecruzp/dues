@@ -42,6 +42,8 @@ app.run(function($ionicPlatform,$rootScope,$cordovaSQLite,$state) {
            $state.current.name=="articulo.datosventa" ||
            $state.current.name=="articulo.datosinventario" ||
            $state.current.name=="articulo.listaprecios" ||
+           $state.current.name=="articulo.almacenes" ||
+           $state.current.name=="articulo.detallealmacen" ||
            $state.current.name=="login"){
             document.getElementById("Carta").style.height="490px";
             console.log("Cambie tamaño");
@@ -147,6 +149,24 @@ app.config(function($stateProvider, $urlRouterProvider,$httpProvider){
           }
         }
       })
+      .state('articulo.almacenes', {
+        url: '/almacenes',
+        views:{
+          'submenu': {
+            templateUrl: 'views/almacenes.html',
+            controller: 'AlmacenesController'
+          }
+        }
+      })
+      .state('articulo.detallealmacen', {
+        url: '/detallealmacen',
+        views:{
+          'submenu': {
+            templateUrl: 'views/detallealmacen.html',
+            controller: 'DetalleAlmacenController'
+          }
+        }
+      })
       .state('main', {
             url: '/main',
             templateUrl: 'views/main.html',
@@ -188,7 +208,7 @@ app.run(function($ionicPlatform) {
 
 //Variables Globales
 app.value('Variables',{
-  IpServidor: '192.168.0.105:8080'
+  IpServidor: '192.168.0.104:8080'
   //IpServidor: '200.52.220.238:8082'
   //IpServidor: '172.16.5.78:8080'
   //IpServidor: 'localhost:8080'

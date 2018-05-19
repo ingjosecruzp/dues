@@ -59,3 +59,14 @@
     color: #00CC00;
     background: transparent;
   }
+  .cuadro{
+    width:30px;
+    height: 30px; 
+    background-color: black;
+    float:left; border-radius: 5px; 
+    color:white; 
+    text-align: center;
+    padding-top:2%;
+    margin-top: -2%;
+    font-weight: bold;
+  }

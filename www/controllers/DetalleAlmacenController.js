@@ -1,4 +1,4 @@
-app.controller('DatosInventarioController', function($scope,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope) {
+app.controller('DetalleAlmacenController', function($scope,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope) {
     $scope.data = {};
     $scope.Articulo={};
  
