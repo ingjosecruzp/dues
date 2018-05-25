@@ -1,15 +1,32 @@
 <ion-view name="detallealmacen-view" ng-init="Inicio()">
+    <div class="banner-almacen">Almacén 01</div>
     <a class="item">
-            <h2>Detalle Almacen:</h2>
-            <p>{{datosInventario.AvgPrice}}</p>
+            <h2>En Stock:</h2>
+            <p>{{datosInventario.OnHand}}</p>
     </a>  
     <a class="item">
-            <h2>Código Proveedor:</h2>
-            <p>{{datosInventario.CardCode}}</p>
+            <h2>Comprometido:</h2>
+            <p>{{datosInventario.IsCommited}}</p>
     </a>  
-    <a class="item item-icon-left" style="padding-top:20px;" href="#/articulo/almacenes" ng-click="LargoCarta('listaalmacenes')">
-        <i class="icon ion-cube"></i>
-        Almacenes
-    </a>
+    <a class="item">
+            <h2>Pedido:</h2>
+            <p>{{datosInventario.OnOrder}}</p>
+    </a> 
+    <a class="item">
+            <h2>Disponible:</h2>
+            <p>{{datosInventario.OnHand-datosInventario.IsCommited+datosInventario.OnOrder}}</p>
+    </a> 
+     <a class="item">
+            <h2>Nivel de Stock Necesario:</h2>
+            <p>{{datosInventario.MinOrder}}</p>
+    </a> 
+    <a class="item">
+            <h2>Nivel de Stock Mínimo:</h2>
+            <p>{{datosInventario.MinStock}}</p>
+    </a> 
+    <a class="item">
+            <h2>Nivel de Stock Máximo:</h2>
+            <p>{{datosInventario.MaxStock}}</p>
+    </a> 
 
 </ion-view>

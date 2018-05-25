@@ -15,4 +15,13 @@ app.controller('AlmacenesController', function($scope,Usuario,articulo,$ionicPop
 				console.log(error);
 		});
 	 }
+	 $scope.LargoCarta=function(tipo, whsCode){
+		
+				 if(tipo=='detallealmacen'){
+					document.getElementById("Carta").style.height="1000px";
+				console.log("Entre a lista almacenes");
+				 }
+				 console.log(whsCode);
+				 $rootScope.articulo.whsCode=whsCode;
+			 }
 });

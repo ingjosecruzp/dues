@@ -5,20 +5,13 @@ app.controller('DetalleAlmacenController', function($scope,Usuario,articulo,$ion
 	$scope.Inicio=function(){
 		$scope.Articulo=$rootScope.articulo;
 
-		articulo.query({method:'getDatosInventario',itemCode: $scope.Articulo.ItemCode},function(respuesta){
+		articulo.query({method:'getDetalleAlmacen',itemCode: $scope.Articulo.ItemCode, whsCode: $scope.Articulo.whsCode},function(respuesta){
 			$scope.datosInventario=respuesta.data[0];
 			
 		},function(error){
 				console.log(error);
 		});
+		
 	 }
 	 
-	 
-	 $scope.LargoCarta=function(tipo){
-		
-				 if(tipo=='listaalmacenes'){
-					document.getElementById("Carta").style.height="900px";
-				console.log("Entre a lista almacenes");
-				 }
-			 }
 });
