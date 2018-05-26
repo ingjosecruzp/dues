@@ -32,7 +32,7 @@ app.run(function($ionicPlatform,$rootScope,$cordovaSQLite,$state) {
     $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS detalle_inventario (idDetalle_Inventario INTEGER PRIMARY KEY AUTOINCREMENT,ItemCode VARCHAR (45),ItemName VARCHAR (45),Codebars VARCHAR (45),Cantidad VARCHAR (45),NombreLote VARCHAR (45),PicturName VARCHAR (45),FechaHora DATETIME,InventarioId INTEGER);');
 
     $ionicPlatform.onHardwareBackButton(function(event) {
-        if($state.current.name=="inventario"){
+        if($state.current.name=="inventario" || $state.current.name=="main"){
           $rootScope.activarEscaner=false;
           $rootScope.activarModificar=false;
         }
