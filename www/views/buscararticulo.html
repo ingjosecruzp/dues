@@ -5,9 +5,9 @@
           <input type="search" placeholder="Buscar" ng-model="searchQuery" ng-enter="IniciarBusqueda(searchQuery);">
         </label>
     </div>
-    <div class="bar" style="height:auto;">
-      <ion-radio style="width:50%;" ng-model="opcionBusqueda" ng-value="'codigo'">Código</ion-radio>
-      <ion-radio style="width:50%;" ng-model="opcionBusqueda" ng-value="'descripcion'">Descripción</ion-radio>
+    <div class="bar" style="height:45px; overflow:hidden;">
+      <ion-radio style="width:52%; height: auto; margin-top: -15px;" ng-model="opcionBusqueda" ng-value="'codigo'">Código</ion-radio>
+      <ion-radio style="width:52%; height: auto; margin-top: -15px;" ng-model="opcionBusqueda" ng-value="'descripcion'">Descripción</ion-radio>
     </div>
     <ion-content style="background-color:white; margin-top:50px;">
         <div style="height: 36px"></div>
@@ -27,8 +27,8 @@
               </center>
             </div>
           <!-- Lista de artículos encontrados -->
-          <a class="item" ng-repeat="articulo in Articulos" ng-click="select_item(articulo)">
-            <b>{{articulo.CodeBars}}</b><br>
+          <a class="item item-text-wrap" ng-repeat="articulo in Articulos" ng-click="select_item(articulo)">
+            <b>{{articulo.ItemCode}}</b><br>
             {{articulo.ItemName}}
             <!--<div class="item-icon-right" >
                 <i class="icon ion-ios-arrow-right"></i>
