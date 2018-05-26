@@ -2,6 +2,30 @@ app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ion
     $scope.data = {};
 	$scope.Login={};
 	$scope.Articulo={};
+	$rootScope.activarEscaner=true;
+
+	$scope.Opciones = function(){
+		var articuloPopup = $ionicPopup.confirm({
+			title: '¿Cómo desea realizar la consulta?',
+			cancelText: 'Escanear código',
+			okText: 'Buscar producto',
+			okType: 'button-capturar',
+			cancelType: 'button-dark'
+		});
+
+		articuloPopup.then(function(res){
+			if(res){
+				$scope.BtnBuscarArticulo();
+			}else{
+				//Líneas de código para Escanear código
+				if($rootScope.activarEscaner==false){
+					console.log("Si entre");
+					$rootScope.activarEscaner=true;
+					return;
+				}
+				$scope.Escanear();
+			}});
+	}
  
     $scope.Escanear = function() {
         try{
@@ -64,6 +88,7 @@ app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ion
             console.log(err);
         }
 	}
+
 	$scope.BtnBuscarArticulo=function(){
 		$state.go('buscararticulo');
 	}
