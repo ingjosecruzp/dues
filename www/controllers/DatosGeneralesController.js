@@ -7,9 +7,16 @@ app.controller('DatosGeneralesController', function($scope,Usuario,articulo,$ion
 	$scope.CheckArtCompra;
 	$scope.CheckArtLinea;
 	$scope.EstadoActivo;
+
+	$scope.$on('modal.shown', function() {
+		console.log('Modal is shown!');
+		$scope.Inicio();
+	});
  
 	$scope.Inicio=function(){
 		$scope.Articulo=$rootScope.articulo;
+
+		console.log("Entre al inicio");
 		
 		$scope.CheckSujetoImpuetos=$scope.Articulo.VATLiable=="Y" ? true : false;
 		$scope.CheckArtInventario=$scope.Articulo.InvntItem=="Y" ? true : false;

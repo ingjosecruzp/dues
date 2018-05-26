@@ -1,4 +1,10 @@
-<ion-view name="datosventa-view" ng-init="Inicio()">
+<ion-content style="background-color:white;" ng-controller="DatosVentaController">
+        <div class="ion-header-bar">
+            <button class="button button-clear button-light" ng-click="ModalDatosVenta.hide();">
+                <i class="icon ion-close"></i>
+            </button>
+        </div>
+
         <a class="item">
                 <h2>Tipo Producto:</h2>
                 <p>{{Articulo.U_DD_PRODUCTOS}}</p>
@@ -55,4 +61,4 @@
                 <h2>Caracteristicas Adicionales:</h2>
                 <p>{{Articulo.U_ItemCaracteristica}}</p>
         </a>
-</ion-view>
+</ion-content>

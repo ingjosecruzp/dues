@@ -1,4 +1,9 @@
-<ion-view name="datosgenerales-view" ng-init="Inicio()">
+<ion-content style="background-color:white;" ng-controller="DatosGeneralesController">
+        <div class="ion-header-bar">
+            <button class="button button-clear button-light" ng-click="ModalDatosGenerales.hide();">
+                <i class="icon ion-close"></i>
+            </button>
+        </div>
         <a class="item">
                 <h2>Grupo de Articulos:</h2>
                 <p></p>
@@ -23,4 +28,4 @@
                 <h2>Comentarios:</h2>
                 <p><textarea rows="10" ng-model="Articulo.UserText" style="width:100%"></textarea></p>
         </a>   
-</ion-view>
+</ion-content>

@@ -1,4 +1,4 @@
-app.controller('ArticuloController', function($scope,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,articulo) {
+app.controller('ArticuloController', function($scope,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,articulo,$ionicModal) {
     $scope.data = {};
 	$scope.Articulo={};
  
@@ -22,27 +22,72 @@ app.controller('ArticuloController', function($scope,Usuario,articulo,$ionicPopu
 				});
 	   	});
 	 }
-
 	 
 	 $scope.LargoCarta=function(tipo){
-		 console.log("PRueba");
-
 		 if(tipo=='datosGenerales'){
-			document.getElementById("Carta").style.height="850px";
+			//document.getElementById("Carta").style.height="850px";
+			$rootScope.ModalDatosGenerales.show();
 		 }
 		 else if(tipo=='datosVenta'){
-			document.getElementById("Carta").style.height="1100px";
+			//document.getElementById("Carta").style.height="1100px";
+			$rootScope.ModalDatosVenta.show();
 		 }
 		 else if(tipo=='datosCompra'){
-			document.getElementById("Carta").style.height="700px";
+			//document.getElementById("Carta").style.height="700px";
+			$rootScope.ModalDatosCompra.show();
 		 }
 		 else if(tipo=='datosInventario'){
-			document.getElementById("Carta").style.height="500px";
+			//document.getElementById("Carta").style.height="500px";
+			$rootScope.ModalDatosInventario.show();
 		 }
 		 else if(tipo=='listaPrecios'){
-			document.getElementById("Carta").style.height="900px";
-			console.log("1200px");
+			//document.getElementById("Carta").style.height="900px";
+			$rootScope.ModalListaPrecios.show();
 		 }
-
 	 }
+
+	 // Manda llamar el modal de datos generales
+	 $ionicModal.fromTemplateUrl('views/datosgenerales.html', function(modal){
+		$rootScope.ModalDatosGenerales = modal;
+	}, {
+		scope: $rootScope,
+		animation: 'slide-in-up',
+		controller: 'DatosGeneralesController'
+	});
+
+	// Manda llamar el modal de datos de venta
+	$ionicModal.fromTemplateUrl('views/datosventa.html', function(modal){
+		$rootScope.ModalDatosVenta = modal;
+	}, {
+		scope: $rootScope,
+		animation: 'slide-in-up',
+		controller: 'DatosVentaController'
+	});
+
+	// Manda llamar el modal de datos de compra
+	$ionicModal.fromTemplateUrl('views/datoscompra.html', function(modal){
+		$rootScope.ModalDatosCompra = modal;
+	}, {
+		scope: $rootScope,
+		animation: 'slide-in-up',
+		controller: 'DatosCompraController'
+	});
+
+	// Manda llamar el modal de datos de inventario
+	$ionicModal.fromTemplateUrl('views/datosinventario.html', function(modal){
+		$rootScope.ModalDatosInventario = modal;
+	}, {
+		scope: $rootScope,
+		animation: 'slide-in-up',
+		controller: 'DatosInventarioController'
+	});
+
+	// Manda llamar el modal de lista de precios
+	$ionicModal.fromTemplateUrl('views/listaprecios.html', function(modal){
+		$rootScope.ModalListaPrecios = modal;
+	}, {
+		scope: $rootScope,
+		animation: 'slide-in-up',
+		controller: 'ListaPreciosController'
+	});
 });

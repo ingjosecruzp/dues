@@ -1,8 +1,14 @@
-<ion-view name="almacenes-view" ng-init="Inicio()">
-    <a class="item item-icon-left" style="padding-top:20px;" href="#/articulo/detallealmacen" ng-click="LargoCarta('detallealmacen',almacen.WhsCode)" ng-repeat="almacen in listaAlmacenes">
+<ion-content style="background-color:white;" ng-controller="AlmacenesController">
+    <div class="ion-header-bar">
+        <button class="button button-clear button-light" ng-click="ModalAlmacenes.hide();">
+            <i class="icon ion-close"></i>
+        </button>
+    </div>
+
+    <a class="item item-icon-left" style="padding-top:20px;" ng-click="LargoCarta('detallealmacen',almacen.WhsCode)" ng-repeat="almacen in listaAlmacenes">
         <div class="cuadro" style="margin-left: -15%;">0</div>
         <div class="cuadro" style="margin-left:-4%;">1</div>
         <span style="margin-left:10px;">{{almacen.WhsName}}</span>
     </a>
 
-</ion-view>
+</ion-content>

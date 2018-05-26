@@ -1,4 +1,10 @@
-<ion-view name="datosinventario-view" ng-init="Inicio()">
+<ion-content style="background-color:white;" ng-controller="DatosInventarioController">
+    <div class="ion-header-bar">
+        <button class="button button-clear button-light" ng-click="ModalDatosInventario.hide();">
+            <i class="icon ion-close"></i>
+        </button>
+    </div>
+
     <a class="item">
             <h2>Costo del Artículo:</h2>
             <p>{{datosInventario.AvgPrice}}</p>
@@ -7,7 +13,7 @@
             <h2>Código Proveedor:</h2>
             <p>{{datosInventario.CardCode}}</p>
     </a>  
-    <a class="item item-icon-left" style="padding-top:20px;" href="#/articulo/almacenes" ng-click="LargoCarta('listaalmacenes')">
+    <a class="item item-icon-left" style="padding-top:20px;" ng-click="LargoCarta('listaalmacenes')">
         <i class="icon ion-cube"></i>
         Almacenes
     </a>

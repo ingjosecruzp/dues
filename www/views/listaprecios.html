@@ -1,4 +1,10 @@
-<ion-view name="listaprecios-view" ng-init="Inicio()">
+<ion-content style="background-color:white;" ng-controller="ListaPreciosController">
+        <div class="ion-header-bar">
+                <button class="button button-clear button-light" ng-click="ModalListaPrecios.hide();">
+                <i class="icon ion-close"></i>
+                </button>
+        </div>
+
     <a class="item">
             <h2>Costo Base:</h2>
             <p>{{listaPrecios[3].Price}}</p>
