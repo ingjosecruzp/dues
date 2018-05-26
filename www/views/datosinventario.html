@@ -1,10 +1,12 @@
 <ion-content style="background-color:white;" ng-controller="DatosInventarioController">
-    <div class="ion-header-bar">
-        <button class="button button-clear button-light" ng-click="ModalDatosInventario.hide();">
-            <i class="icon ion-close"></i>
-        </button>
+    <div class="bar bar-header bar-dark" style="background-color:black">
+            <i style="width:4%;" class="button button-icon ion-chevron-left" ng-click="ModalDatosInventario.hide();"></i>
+            <h2 class="title" style="font-size:16px; text-align:left; margin-left:15%;">{{Articulo.ItemCode}}</h2>
     </div>
-
+    <div class="bar bar-subheader bar-dark" style="background-color:#222323;">    
+            <h1 class="title" style="text-align:left; margin-left:15%; font-size:16px;">Datos de Inventario</h1>
+    </div>
+    <div style="height:85px;"></div>
     <a class="item">
             <h2>Costo del Artículo:</h2>
             <p>{{datosInventario.AvgPrice}}</p>
