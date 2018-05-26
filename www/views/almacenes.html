@@ -9,8 +9,8 @@
     <div style="height:85px;"></div>
 
     <a class="item item-icon-left" style="padding-top:20px;" ng-click="LargoCarta('detallealmacen',almacen.WhsCode)" ng-repeat="almacen in listaAlmacenes">
-        <div class="cuadro" style="margin-left: -15%;">0</div>
-        <div class="cuadro" style="margin-left:-4%;">1</div>
+        <div class="cuadro" style="margin-left: -15%;">{{almacen.n1}}</div>
+        <div class="cuadro" style="margin-left:-4%;">{{almacen.n2}}</div>
         <span style="margin-left:10px;">{{almacen.WhsName}}</span>
     </a>
 

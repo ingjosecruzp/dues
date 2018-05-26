@@ -15,6 +15,8 @@ app.controller('AlmacenesController', function($scope,Usuario,articulo,$ionicPop
 
 		articulo.query({method:'getListaAlmacenes'},function(respuesta){
 			respuesta.data.forEach(function(almacen){
+				almacen.n1=almacen.WhsCode.substr(0,1);
+				almacen.n2=almacen.WhsCode.substr(1,1);
 				$scope.listaAlmacenes.push(almacen);
 			});
 
