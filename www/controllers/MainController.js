@@ -47,7 +47,7 @@ app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ion
 		   });*/
 	       $ionicPlatform.ready(function () {
 				$cordovaBarcodeScanner
-					.scan()
+					.scan({orientation : "portrait", showTorchButton: true})
 					.then(function(barcodeData) {
 						if(barcodeData.cancelled==true){
 							$scope.ModalAgregarProducto.hide();
