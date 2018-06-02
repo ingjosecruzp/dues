@@ -126,13 +126,13 @@ app.controller('BuscarArticuloController', function($scope,Usuario,articulo,$ion
 		$scope.searchQuery=null;
 		var divteclado = angular.element( document.getElementById('divteclado') );
 		var divnoencontrado = angular.element( document.getElementById('divnoencontrado') );
-		divteclado.removeClass('oculto');
-		divteclado.addClass('mostrar');
-		divnoencontrado.removeClass('mostrar');
-		divnoencontrado.addClass('oculto');
-		$scope.Articulos=[];
+		//divteclado.removeClass('oculto');
+		//divteclado.addClass('mostrar');
+		//divnoencontrado.removeClass('mostrar');
+		//divnoencontrado.addClass('oculto');
+		//$scope.Articulos=[];
 
-		$rootScope.ModalBuscarProducto.hide();
+		//$rootScope.ModalBuscarProducto.hide();
 		$rootScope.ModalAgregarProducto.show();
 	  }
 });
