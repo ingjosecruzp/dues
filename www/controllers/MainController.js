@@ -1,4 +1,4 @@
-app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ionicPlatform,$cordovaBarcodeScanner,$ionicPopup,articulo,$rootScope,$ionicLoading) {
+app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ionicPlatform,$ionicPopup,articulo,$rootScope,$ionicLoading) {
     $scope.data = {};
 	$scope.Login={};
 	$scope.Articulo={};
@@ -46,9 +46,8 @@ app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ion
 				});
 		   });*/
 	       $ionicPlatform.ready(function () {
-				$cordovaBarcodeScanner
-					.scan({orientation : "portrait", showTorchButton: true})
-					.then(function(barcodeData) {
+			cordova.plugins.barcodeScanner
+					.scan(function(barcodeData) {
 						if(barcodeData.cancelled==true){
 							$scope.ModalAgregarProducto.hide();
 							return;
@@ -81,7 +80,7 @@ app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ion
 								title: 'Errorrr',
 								template: error
 							});
-					});
+					},{orientation : "portrait", showTorchButton: true});
 	        });
         }
         catch(err){

@@ -1,4 +1,4 @@
-app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoading,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,$ionicModal,articulo,inventario,detalleinventario,$cordovaBarcodeScanner,$ionicPlatform,inventarios,Servicios,$timeout) {
+app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoading,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,$ionicModal,articulo,inventario,detalleinventario,$ionicPlatform,inventarios,Servicios,$timeout) {
     
     $scope.codigoCapturado={};
     $scope.indicadorModificar=false;
@@ -328,9 +328,8 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
         $scope.Escanear = function() {
             try{
                $ionicPlatform.ready(function () {
-                    $cordovaBarcodeScanner
-                        .scan({orientation : "portrait", showTorchButton: true})
-                        .then(function(barcodeData) {
+                    cordova.plugins.barcodeScanner
+                        .scan(function(barcodeData) {
                             if(barcodeData.cancelled==true){
                                 $rootScope.ModalAgregarProducto.hide();
                                 return;
@@ -403,6 +402,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                                     });
                                     alertPopup.then(function(){$rootScope.ModalAgregarProducto.hide();});
                                });}
+                            $scope.$apply();
                         }, function(error) {
                             // An error occurred
                                 $ionicLoading.hide();
@@ -411,7 +411,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                                     template: error
                                 });
                                 alertPopup.then(function(){$rootScope.ModalAgregarProducto.hide();});
-                        });
+                        },{orientation : "portrait", showTorchButton: true});
                     
                 });
             }
@@ -444,6 +444,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
     
                         $rootScope.member={};
                         $rootScope.ModalAgregarProducto.hide();
+                        $rootScope.ModalBuscarProducto.hide();
                         return;
                     });
                 }
@@ -459,6 +460,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                         $scope.articulosGuardados.push($rootScope.member);
                         $rootScope.member={};
 
+                        $rootScope.ModalBuscarProducto.hide();
                         $rootScope.ModalAgregarProducto.hide();
                     });
 
