@@ -301,6 +301,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
         $ionicModal.fromTemplateUrl('views/modalBuscarInventario.html', function(modal){
             $rootScope.ModalBuscarProducto = modal;
         }, {
+            scope: $rootScope,
             animation: 'slide-in-up',
             controller: 'BuscarArticuloController'
         });

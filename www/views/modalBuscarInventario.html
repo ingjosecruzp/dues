@@ -13,14 +13,14 @@
     <div style="height: 36px"></div>
     <div class="list list-inset">
       <!-- div con imágen de inicio en pantalla de búsqueda -->
-      <div class="item mostrar" id="divteclado">
+      <div class="item" id="divteclado" ng-show="mostrarDivTeclado">
         <center>
             <img src="img/teclado.jpg" alt="" style="width:40%;">
             <p>Teclea un producto en la barra de búsqueda</p>
         </center>
       </div>
       <!-- div con imágen para búsquedas sin resultados -->
-      <div class="item oculto" id="divnoencontrado">
+      <div class="item" id="divnoencontrado" ng-show="mostrarDivNoEncontrado">
           <center>
               <img src="img/noencontrado.png" alt="" style="width:40%;">
               <p>No se encontraron resultados</p>

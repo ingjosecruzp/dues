@@ -3,6 +3,8 @@ app.controller('BuscarArticuloController', function($scope,Usuario,articulo,$ion
 	$scope.data = {};
 	$scope.Articulos=[];
 	$scope.InfiniteScroll=false;
+	$rootScope.mostrarDivNoEncontrado=false;
+	$rootScope.mostrarDivTeclado=true;
 	//Variables temporal para guardar la busqueda acutal y poder comparar
 	$scope.$searchQueryTemp; 
 	//$scope.searchQuery="dsadsa";
@@ -17,8 +19,10 @@ app.controller('BuscarArticuloController', function($scope,Usuario,articulo,$ion
 
 		var divteclado = angular.element( document.getElementById('divteclado') );
 
-		divteclado.removeClass('mostrar');
-		divteclado.addClass('oculto');
+		//divteclado.removeClass('mostrar');
+		//divteclado.addClass('oculto');
+		$rootScope.mostrarDivTeclado=false;
+		$rootScope.mostrarDivNoEncontrado=false;
 	}
 	$scope.Buscar=function(searchQuery){
 		if(searchQuery.length < 3)
@@ -35,13 +39,15 @@ app.controller('BuscarArticuloController', function($scope,Usuario,articulo,$ion
 					$scope.InfiniteScroll=false;
 					console.log("No se encontraron articulos");
 					var divnoencontrado = angular.element( document.getElementById('divnoencontrado') );
-					divnoencontrado.removeClass('oculto');
-					divnoencontrado.addClass('mostrar');
+					//divnoencontrado.removeClass('oculto');
+					//divnoencontrado.addClass('mostrar');
+					$rootScope.mostrarDivNoEncontrado=true;
 				} else{
 					console.log("Si se encontraron");
 					var divnoencontrado = angular.element( document.getElementById('divnoencontrado') );
-					divnoencontrado.removeClass('mostrar');
-					divnoencontrado.addClass('oculto');
+					//divnoencontrado.removeClass('mostrar');
+					//divnoencontrado.addClass('oculto');
+					$rootScope.mostrarDivNoEncontrado=false;
 				}
 
 				respuesta.data.forEach(function(articulo) {
@@ -51,8 +57,10 @@ app.controller('BuscarArticuloController', function($scope,Usuario,articulo,$ion
 				$scope.$broadcast('scroll.infiniteScrollComplete');
 
 				if($scope.Articulos.length>0){
-					divnoencontrado.removeClass('mostrar');
-					divnoencontrado.addClass('oculto');
+					//divnoencontrado.removeClass('mostrar');
+					//divnoencontrado.addClass('oculto');
+					$rootScope.mostrarDivNoEncontrado=false;
+					$rootScope.mostrarDivTeclado=false;
 				}
 			},function(error){
 				$ionicLoading.hide();
