@@ -28,7 +28,7 @@
         </div>
       <!-- Lista de artículos encontrados -->
       <div class="item item-text-wrap" ng-repeat="articulo in Articulos" ng-click="agregarModal(articulo)">
-        <b>{{articulo.CodeBars}}</b><br>
+        <b>{{articulo.ItemCode}}</b><br>
         {{articulo.ItemName}}
       </div>
       <ion-infinite-scroll ng-if="moreDataCanBeLoaded()" on-infinite="Buscar(searchQuery)" distance="1%"></ion-infinite-scroll>
