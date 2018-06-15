@@ -10,5 +10,6 @@ app.controller('DatosVentaController', function($scope,Usuario,articulo,$ionicPo
 	$scope.Inicio=function(){
 		$scope.Articulo=$rootScope.articulo;
 		console.log($scope.Articulo);
+
 	 }
 });
