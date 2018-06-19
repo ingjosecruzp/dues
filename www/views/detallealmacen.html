@@ -9,31 +9,31 @@
         <div style="height:85px;"></div>
     <a class="item">
             <h2>En Stock:</h2>
-            <p>{{datosInventario.OnHand}}</p>
+            <p>{{datosInventario.OnHand|number:2}}</p>
     </a>  
     <a class="item">
             <h2>Comprometido:</h2>
-            <p>{{datosInventario.IsCommited}}</p>
+            <p>{{datosInventario.IsCommited|number:2}}</p>
     </a>  
     <a class="item">
             <h2>Pedido:</h2>
-            <p>{{datosInventario.OnOrder}}</p>
+            <p>{{datosInventario.OnOrder|number:fractionSize}}</p>
     </a> 
     <a class="item">
             <h2>Disponible:</h2>
-            <p>{{datosInventario.OnHand-datosInventario.IsCommited+datosInventario.OnOrder}}</p>
+            <p>{{datosInventario.OnHand-datosInventario.IsCommited+datosInventario.OnOrder|number:2}}</p>
     </a> 
      <a class="item">
             <h2>Nivel de Stock Necesario:</h2>
-            <p>{{datosInventario.MinOrder}}</p>
+            <p>{{datosInventario.MinOrder|number:fractionSize}}</p>
     </a> 
     <a class="item">
             <h2>Nivel de Stock Mínimo:</h2>
-            <p>{{datosInventario.MinStock}}</p>
+            <p>{{datosInventario.MinStock|number:fractionSize}}</p>
     </a> 
     <a class="item">
             <h2>Nivel de Stock Máximo:</h2>
-            <p>{{datosInventario.MaxStock}}</p>
+            <p>{{datosInventario.MaxStock|number:fractionSize}}</p>
     </a> 
 
 </ion-view>
