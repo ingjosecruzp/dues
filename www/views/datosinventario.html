@@ -7,13 +7,11 @@
 </div>
 <ion-content style="background-color:white;" ng-controller="DatosInventarioController">
     <div style="height:85px;"></div>
-    <a class="item">
-            <h2>Costo del Artículo:</h2>
-            <p>${{datosInventario.AvgPrice}}</p>
+    <a class="item item-text-wrap">
+            <h2>Costo del Artículo:<span style="color:gray">   ${{datosInventario.AvgPrice}}</span></h2>
     </a>  
     <a class="item">
-            <h2>Código Proveedor:</h2>
-            <p>{{datosInventario.CardCode}}</p>
+            <h2>Código Proveedor:<span style="color:gray">   {{datosInventario.CardCode}}</span></h2>
     </a>  
     <a class="item item-icon-left" style="padding-top:20px;" ng-click="LargoCarta('listaalmacenes')">
         <i class="icon ion-cube"></i>

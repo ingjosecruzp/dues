@@ -1,31 +1,30 @@
 <ion-view name="articulo-view" ng-init="Inicio()">
-    <ion-content class="padding">
-        <div class="list list-inset" id="Carta" style="height: 600px;">
-            <a class="item">
-                DUES
-            </a>
-            <a class="item item-thumbnail-left">
-                    <img src="{{Articulo.ImagenBase64}}" style="max-width: 99px;max-height: 91px;">
-                    <div class="row">
-                        <div class="col">
-                            <h6>Codigo SAP</h6>
-                            <p>{{Articulo.ItemCode}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <h6>Codigo de barras</h6>
-                            <p>{{Articulo.CodeBars}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <h6>Descripción</h6>
-                            <p style="white-space: normal;">{{Articulo.ItemName}}</p>
-                        </div>
-                    </div>
-            </a>
-            <ion-nav-view name="submenu"></ion-nav-view>
+    <div class="list list-inset" id="Carta" style="height: 600px;">
+        <div class="bar bar-header bar-dark" style="background-color:black">
+            <h2 class="title" style="font-size:16px; text-align:left; margin-left:10%;">DUES</h2>
         </div>
-    </ion-content>
+        <div style="height:45px;"></div>
+        <a class="item item-thumbnail-left">
+                <img src="{{Articulo.ImagenBase64}}" style="max-width: 99px;max-height: 91px;">
+                <div class="row">
+                    <div class="col">
+                        <h3>Codigo SAP</h3>
+                        <p>{{Articulo.ItemCode}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h3>Codigo de barras</h3>
+                        <p>{{Articulo.CodeBars}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h3>Descripción</h3>
+                        <p style="white-space: normal;">{{Articulo.ItemName}}</p>
+                    </div>
+                </div>
+        </a>
+        <ion-nav-view name="submenu"></ion-nav-view>
+    </div>
   </ion-view>
