@@ -24,5 +24,13 @@ app.controller('DatosGeneralesController', function($scope,Usuario,articulo,$ion
 		$scope.CheckArtCompra=$scope.Articulo.PrchseItem=="Y" ? true : false;
 		$scope.CheckArtLinea=$scope.Articulo.U_ItemDeLinea=="Y" ? true : false;
 		$scope.EstadoActivo=$scope.Articulo.validFor=="Y" ? true : false;
+
+		articulo.query({method:'getGrupoArticulo',codigoGrupo: $scope.Articulo.ItmsGrpCod},function(respuesta){
+			$scope.Articulo.ItmsGrpNam=respuesta.data[0].ItmsGrpNam;
+			console.log(respuesta);
+
+		},function(error){
+			 console.log(error);
+		});
 	 }
 });

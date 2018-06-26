@@ -266,12 +266,13 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                     //Ajusta la fecha para que pueda ser aceptada por el wcf
                     $scope.articulosGuardados.forEach(function(producto) {
                         producto.FechaHora=Servicios.convertToJSONDate(producto.FechaHora);
+                        producto.UsuarioId=1;
                     });
 
                     var newInventario = new inventarios({
                         idInventario:0,
-                        FechaInicio :Servicios.convertToJSONDate(FechaInicio),
-                        UsuarioId   :0,
+                        //FechaInicio :Servicios.convertToJSONDate(FechaInicio),
+                        UsuarioId   :1,
                         UUID        :"0000000",
                         Modelo      :"Motorola",
                         detalle_inventario : $scope.articulosGuardados});

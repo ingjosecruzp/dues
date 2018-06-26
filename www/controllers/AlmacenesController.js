@@ -27,9 +27,10 @@ app.controller('AlmacenesController', function($scope,Usuario,articulo,$ionicPop
 		});
 	}
 	 
-	$scope.LargoCarta=function(tipo, whsCode){
+	$scope.LargoCarta=function(tipo, whsCode, whsName){
 		if(tipo=='detallealmacen'){
 			$rootScope.articulo.whsCode=whsCode;
+			$rootScope.articulo.whsName=whsName;
 			//document.getElementById("Carta").style.height="1000px";
 			$rootScope.ModalDetalleAlmacen.show();
 		}

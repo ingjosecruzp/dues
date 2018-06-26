@@ -1,6 +1,6 @@
 <div class="bar bar-header bar-dark" style="background-color:black">
         <i style="width:4%;" class="button button-icon ion-chevron-left" ng-click="ModalDetalleAlmacen.hide();"></i>
-        <h2 class="title" style="font-size:16px; text-align:left; margin-left:15%;">Detalles de Almacén {{Articulo.whsCode}}</h2>
+        <h2 class="title" style="font-size:16px; text-align:left; margin-left:15%;">{{articulo.whsCode}} {{articulo.whsName}}</h2>
 </div>
 <div class="bar bar-subheader bar-dark" style="background-color:#222323;" ng-controller="DetalleAlmacenController">    
         <h1 class="title" style="text-align:left; margin-left:15%; font-size:16px;">{{Articulo.ItemCode}}</h1>
