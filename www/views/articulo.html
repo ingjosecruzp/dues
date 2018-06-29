@@ -4,7 +4,7 @@
             <h2 class="title" style="font-size:16px; text-align:left; margin-left:10%;">DUES</h2>
         </div>
         <div style="height:45px;"></div>
-        <a class="item item-thumbnail-left">
+        <a class="item item-thumbnail-left" ng-click="ImagenZoom()">
                 <img src="{{Articulo.ImagenBase64}}" style="max-width: 99px;max-height: 91px;">
                 <div class="row">
                     <div class="col">
@@ -25,6 +25,13 @@
                     </div>
                 </div>
         </a>
+        <script type="text/ng-template" id="ImagenZoom.html">
+            <center>
+                <div>
+                    <img src="{{Articulo.ImagenBase64}}" style="max-width: 90%;">
+                </div>
+            </center>
+        </script>
         <ion-nav-view name="submenu"></ion-nav-view>
     </div>
   </ion-view>
