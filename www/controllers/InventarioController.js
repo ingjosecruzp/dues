@@ -1,4 +1,4 @@
-app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoading,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,$ionicModal,articulo,inventario,detalleinventario,$ionicPlatform,inventarios,Servicios,$timeout) {
+app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoading,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,$ionicModal,articulo,inventario,detalleinventario,$ionicPlatform,inventarios,Servicios,$timeout, $cordovaDevice) {
     
     $scope.codigoCapturado={};
     $scope.indicadorModificar=false;
@@ -246,6 +246,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
 
         //Función que muestra un popup cuando se presiona el botón de guardar
         $scope.OpcionGuardar = function(){
+            if($scope.articulosGuardados.length==0) return;
             console.log("Entre a Guardar productos");
             var articuloPopup = $ionicPopup.confirm({
                 title:'Se guardará el conteo físico en el sistema, ¿Desea continuar?', 
@@ -264,20 +265,49 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                     
 
                     //Ajusta la fecha para que pueda ser aceptada por el wcf
+                    var fechasOriginales=[];
                     $scope.articulosGuardados.forEach(function(producto) {
+                        fechasOriginales.push(producto.FechaHora);
                         producto.FechaHora=Servicios.convertToJSONDate(producto.FechaHora);
-                        producto.UsuarioId=1;
+                        producto.UsuarioId=$rootScope.idUsuario;
                     });
+
+                    //Obtención de datos del dispositivo para guardar el inventario
+                    $scope.uuid = $cordovaDevice.getUUID();
+                    $scope.modelo = $cordovaDevice.getModel();
 
                     var newInventario = new inventarios({
                         idInventario:0,
                         //FechaInicio :Servicios.convertToJSONDate(FechaInicio),
-                        UsuarioId   :1,
-                        UUID        :"0000000",
-                        Modelo      :"Motorola",
-                        detalle_inventario : $scope.articulosGuardados});
+                        UsuarioId   :$rootScope.idUsuario,
+                        UUID        :$scope.uuid,
+                        Modelo      :$scope.modelo,
+                        detalle_inventario : $scope.articulosGuardados
+                    });
+                    
                     console.log(newInventario);
-                    newInventario.$save();
+                    var promiseSaved = newInventario.$save();
+
+                    promiseSaved.then(function(){
+                        console.log("Inventario guardado");
+                        $ionicPopup.alert({
+                            title: "Éxito",
+                            template: "Inventario guardado correctamente"
+                        });
+
+                    $scope.articulosGuardados=[];    
+                    $cordovaSQLite.execute(db, 'DROP TABLE IF EXISTS detalle_inventario');                
+                    $cordovaSQLite.execute(db, 'CREATE TABLE IF NOT EXISTS detalle_inventario (idDetalle_Inventario INTEGER PRIMARY KEY AUTOINCREMENT,ItemCode VARCHAR (45),ItemName VARCHAR (45),Codebars VARCHAR (45),Cantidad VARCHAR (45),NombreLote VARCHAR (45),PicturName VARCHAR (45),FechaHora DATETIME,InventarioId INTEGER);');
+                    }, function(){
+                        $scope.articulosGuardados.forEach(function(producto){
+                            producto.FechaHora=fechasOriginales[$scope.articulosGuardados.indexOf(producto)];
+                        });
+                        console.log("Error al guardar el inventario");
+                        $ionicPopup.alert({
+                            title: "Error",
+                            template: "Error al guardar el inventario"
+                        });
+                    });
                     //$rootScope.ModalAgregarProducto.show();
                     
                 }else{

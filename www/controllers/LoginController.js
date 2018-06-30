@@ -1,4 +1,4 @@
-app.controller('LoginController', function($scope,Usuario,$ionicPopup,$state,$http,$ionicLoading) {
+app.controller('LoginController', function($scope,$rootScope,Usuario,$ionicPopup,$state,$http,$ionicLoading) {
     $scope.data = {};
     $scope.Login={};
  
@@ -10,8 +10,19 @@ app.controller('LoginController', function($scope,Usuario,$ionicPopup,$state,$ht
 			});
 			
 	        var acceso = Usuario.query({method:'Login',usuario:$scope.Login.Usuario,password: $scope.Login.Password}, function() {
-				$ionicLoading.hide();
-				  $state.go('main');
+				
+				Usuario.get({method:'getId',usuario:$scope.Login.Usuario,password: $scope.Login.Password}, function(response) {
+					$rootScope.idUsuario=response.data;
+					console.log("El id es: "+$rootScope.idUsuario);
+					$ionicLoading.hide();
+					$state.go('main');
+				}, function(error) {
+					$ionicLoading.hide();
+					var alertPopup = $ionicPopup.alert({
+						title: 'Error',
+						template: error.headers("Error")
+					});
+				});
 			}, function(error) {
 				$ionicLoading.hide();
     			var alertPopup = $ionicPopup.alert({
