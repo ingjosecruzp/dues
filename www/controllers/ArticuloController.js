@@ -5,6 +5,7 @@ app.controller('ArticuloController', function($scope,Usuario,articulo,$ionicPopu
 	$scope.Inicio=function(){
 		$scope.Articulo=$rootScope.articulo;
 		$scope.Articulo.ImagenBase64="img/loading.gif";
+		
 	
 		if($scope.Articulo.PicturName==undefined)
 		{
@@ -45,6 +46,15 @@ app.controller('ArticuloController', function($scope,Usuario,articulo,$ionicPopu
 			$rootScope.ModalListaPrecios.show();
 		 }
 	 }
+
+	 $scope.ImagenZoom = function(){
+		console.log($scope.Articulo.ImagenBase64);
+		var pop = $ionicPopup.alert({
+			scope: $scope,
+			title: 'Imagen',
+			templateUrl: 'ImagenZoom.html'
+		});
+	}
 
 	 // Manda llamar el modal de datos generales
 	 $ionicModal.fromTemplateUrl('views/datosgenerales.html', function(modal){
