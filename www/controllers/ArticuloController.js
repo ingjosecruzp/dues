@@ -46,7 +46,7 @@ app.controller('ArticuloController', function($scope,Usuario,articulo,$ionicPopu
 			$rootScope.ModalListaPrecios.show();
 		 }
 	 }
-
+	//Popup para la imagen del articulo
 	 $scope.ImagenZoom = function(){
 		console.log($scope.Articulo.ImagenBase64);
 		var pop = $ionicPopup.alert({

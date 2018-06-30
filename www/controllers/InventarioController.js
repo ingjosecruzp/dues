@@ -42,6 +42,15 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
             });
         }
 
+          //Popup para la imagen del articulo
+          $rootScope.ImagenZoom = function(){
+            console.log($rootScope.member.ImagenBase64);
+            var pop = $ionicPopup.alert({
+                scope: $rootScope,
+                title: 'Imagen',
+                templateUrl: 'ImagenZoom.html'
+            });
+        }
         $scope.ModificarProducto = function(articulo){
             if(articulo.NombreLote==null) $rootScope.checkLote.check=false;
             else $rootScope.checkLote.check=true;
@@ -338,7 +347,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
         });
 
         //Función para mostrar u ocultar la caja de búsqueda
-        $scope.AbrirBusqueda = function(){
+        $scopeBusqueda = function(){
             var contenedor = angular.element( document.getElementById('cajaBusqueda') );
             
             //Condiciones para mostrar y ocultar la caja  de búsqueda
@@ -663,7 +672,8 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
             });
         }
 
-        
+          
+
         /*$scope.AgregarProducto = function(){
             //Lineas de código para agregar un producto
 

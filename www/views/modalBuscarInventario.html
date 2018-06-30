@@ -1,9 +1,9 @@
 <div ng-controller="BuscarArticuloController">
 <div class="bar bar-header item-input-inset">
     <label class="item-input-wrapper">
-      <i class="icon ion-ios-search placeholder-icon"></i>
       <input type="search" placeholder="Buscar" ng-model="searchQuery" ng-enter="IniciarBusqueda(searchQuery);">
     </label>
+    <button class="button button-icon ion-ios-search" ng-click="IniciarBusqueda(searchQuery);"></button>
 </div>
 <div class="bar" style="height:45px; overflow:hidden;">
   <ion-radio style="width:52%; height: auto; margin-top: -15px;" ng-model="opcionBusqueda" ng-value="'codigo'">Código</ion-radio>
