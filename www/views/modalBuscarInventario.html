@@ -3,7 +3,7 @@
     <label class="item-input-wrapper">
       <input type="search" placeholder="Buscar" ng-model="searchQuery" ng-enter="IniciarBusqueda(searchQuery);">
     </label>
-    <button class="button button-icon ion-ios-search" ng-click="IniciarBusqueda(searchQuery);"></button>
+    <button class="button icon ion-ios-search" ng-click="IniciarBusqueda(searchQuery);" style="border: 1px solid lightgray"></button>
 </div>
 <div class="bar" style="height:45px; overflow:hidden;">
   <ion-radio style="width:52%; height: auto; margin-top: -15px;" ng-model="opcionBusqueda" ng-value="'codigo'">Código</ion-radio>

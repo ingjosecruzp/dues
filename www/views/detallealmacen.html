@@ -9,31 +9,31 @@
         <div style="height:85px;"></div>
     <a class="item">
             <h2>En Stock:</h2>
-            <p>{{datosInventario.OnHand|number:2}}</p>
+            <span style="color:gray; float:right; font-weight: bold; font-size: 14px;">{{datosInventario.OnHand|number:2}}</span>
     </a>  
     <a class="item">
             <h2>Comprometido:</h2>
-            <p>{{datosInventario.IsCommited|number:2}}</p>
+            <span style="color:gray; float:right; font-weight: bold; font-size: 14px;">{{datosInventario.IsCommited|number:2}}</span>
     </a>  
     <a class="item">
             <h2>Pedido:</h2>
-            <p>{{datosInventario.OnOrder|number:fractionSize}}</p>
+            <span style="color:gray; float:right; font-weight: bold; font-size: 14px;">{{datosInventario.OnOrder|number:fractionSize}}</span>
     </a> 
     <a class="item">
             <h2>Disponible:</h2>
-            <p>{{datosInventario.OnHand-datosInventario.IsCommited+datosInventario.OnOrder|number:2}}</p>
+            <span style="color:gray; float:right; font-weight: bold; font-size: 14px;">{{datosInventario.OnHand-datosInventario.IsCommited+datosInventario.OnOrder|number:2}}</span>
     </a> 
      <a class="item">
             <h2>Nivel de Stock Necesario:</h2>
-            <p>{{datosInventario.MinOrder|number:fractionSize}}</p>
+            <span style="color:gray; float:right; font-weight: bold; font-size: 14px;">{{datosInventario.MinOrder|number:fractionSize}}</span>
     </a> 
     <a class="item">
             <h2>Nivel de Stock Mínimo:</h2>
-            <p>{{datosInventario.MinStock|number:fractionSize}}</p>
+            <span style="color:gray; float:right; font-weight: bold; font-size: 14px;">{{datosInventario.MinStock|number:fractionSize}}</span>
     </a> 
     <a class="item">
             <h2>Nivel de Stock Máximo:</h2>
-            <p>{{datosInventario.MaxStock|number:fractionSize}}</p>
+            <span style="color:gray; float:right; font-weight: bold; font-size: 14px;">{{datosInventario.MaxStock|number:fractionSize}}</span>
     </a> 
 
 </ion-view>
