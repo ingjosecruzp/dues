@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 var db = null;  //Variable para la base de datos
 
-var app=angular.module('starter', ['ionic','ngResource','ngCordova'])
+var app=angular.module('starter', ['ionic','ngResource','ngCordova','ionic.closePopup']);
 
 app.run(function($ionicPlatform,$rootScope,$cordovaSQLite,$state) {
   $rootScope.articulo = {};

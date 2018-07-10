@@ -100,4 +100,8 @@ app.controller('ArticuloController', function($scope,Usuario,articulo,$ionicPopu
 		animation: 'slide-in-up',
 		controller: 'ListaPreciosController'
 	});
+
+	$scope.volverBusqueda = function(){
+		$state.go('buscararticulo');
+	}
 });

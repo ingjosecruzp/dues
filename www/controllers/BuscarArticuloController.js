@@ -143,4 +143,8 @@ app.controller('BuscarArticuloController', function($scope,Usuario,articulo,$ion
 		//$rootScope.ModalBuscarProducto.hide();
 		$rootScope.ModalAgregarProducto.show();
 	  }
+
+	  $scope.volverInicio=function(){
+		$state.go('main');
+	  }
 });

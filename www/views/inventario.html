@@ -2,6 +2,7 @@
     <!-- Cabecera -->
     <div class="bar bar-header bar-dark" style="background-color:black">
         <h1 class="title">Inventario</h1>
+        <i id="noEliminando3" class="button button-icon ion-chevron-left" ng-click="volverInicio()"></i>
         <i id="noEliminando" style="margin-right: 10%; width:5%;" class="button button-icon ion-ios-search" ng-click="AbrirBusqueda()"></i>
         <i id="noEliminando2" class="button button-icon ion-ios-checkmark-outline pull-right" ng-click="activarSeleccionar()"></i>
 
@@ -9,7 +10,7 @@
         <i id="siEliminando2" style="display: none; margin-right: 12%;" class="button button-icon ion-android-done-all pull-right" ng-click="seleccionarTodo()"></i>
         <i id="siEliminando3" style="display: none;" class="button button-icon ion-trash-a pull-right" ng-click="eliminarSeleccionados()"></i>
     </div>
-    <div class="item-input-inset oculto bar bar-subheader" id="cajaBusqueda">
+    <div class="item-input-inset bar bar-subheader" id="cajaBusqueda" ng-show="mBarraBuscar">
         <i class="icon ion-ios-search placeholder-icon"></i>
         <input id="inputBuscar" type="search" placeholder="Buscar" ng-model="cajaBuscarInventario">
     </div>

@@ -1,4 +1,4 @@
-app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ionicPlatform,$ionicPopup,articulo,$rootScope,$ionicLoading) {
+app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ionicPlatform,$ionicPopup,articulo,$rootScope,$ionicLoading,IonicClosePopupService) {
     $scope.data = {};
 	$scope.Login={};
 	$scope.Articulo={};
@@ -12,11 +12,12 @@ app.controller('MainController', function($scope,Usuario,$ionicPopup,$state,$ion
 			okType: 'button-capturar',
 			cancelType: 'button-dark'
 		});
+		IonicClosePopupService.register(articuloPopup);
 
 		articuloPopup.then(function(res){
 			if(res){
 				$scope.BtnBuscarArticulo();
-			}else{
+			}else if(res==false){
 				//Líneas de código para Escanear código
 				if($rootScope.activarEscaner==false){
 					console.log("Si entre");

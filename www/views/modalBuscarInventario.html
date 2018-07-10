@@ -1,6 +1,8 @@
 <div ng-controller="BuscarArticuloController">
 <div class="bar bar-header item-input-inset">
-    <label class="item-input-wrapper">
+    <button style="margin-left:-2%;" class="button button-icon ion-chevron-left" ng-click="ModalBuscarProducto.hide();"></button>  
+  <!--<i style="width:4%;" class="button button-icon ion-chevron-left" ng-click="ModalBuscarProducto.hide();"></i>-->
+    <label class="item-input-wrapper"  style="margin-left:1%;">
       <input type="search" placeholder="Buscar" ng-model="searchQuery" ng-enter="IniciarBusqueda(searchQuery);">
     </label>
     <button class="button icon ion-ios-search" ng-click="IniciarBusqueda(searchQuery);" style="border: 1px solid lightgray"></button>

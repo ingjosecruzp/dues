@@ -1,4 +1,4 @@
-app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoading,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,$ionicModal,articulo,inventario,detalleinventario,$ionicPlatform,inventarios,Servicios,$timeout, $cordovaDevice) {
+app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoading,Usuario,articulo,$ionicPopup,$state,$stateParams,$rootScope,$ionicModal,articulo,inventario,detalleinventario,$ionicPlatform,inventarios,Servicios,$timeout, $cordovaDevice,IonicClosePopupService) {
     
     $scope.codigoCapturado={};
     $scope.indicadorModificar=false;
@@ -23,13 +23,14 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                 okType: 'button-assertive',
                 cancelType: 'button-balanced'
             });
+            IonicClosePopupService.register(articuloPopup);
 
             articuloPopup.then(function(res){
                 if(res){
                     //Líneas de código para eliminar artículo
                     console.log("Entre a Eliminar");
                     $scope.OpcionEliminarProducto(articulo);
-                }else{
+                }else if(res==false){
                     //Líneas de código Modificar artículo
                     if($rootScope.activarModificar==false){
                         $rootScope.activarModificar=true;
@@ -50,6 +51,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                 title: 'Imagen',
                 templateUrl: 'ImagenZoom.html'
             });
+            IonicClosePopupService.register(pop);
         }
         $scope.ModificarProducto = function(articulo){
             if(articulo.NombreLote==null) $rootScope.checkLote.check=false;
@@ -88,6 +90,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                 okType: 'button-capturar',
                 cancelType: 'button-dark'
             });
+            IonicClosePopupService.register(articuloPopup);
 
             articuloPopup.then(function(res){
                 if(res){
@@ -96,7 +99,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                     //$scope.OpcionEscribirCodigo();
                     $rootScope.txtbtnModal="Agregar";
                     $rootScope.ModalBuscarProducto.show();
-                }else{
+                }else if(res==false){
                     //Líneas de código para Escanear código
                     if($rootScope.activarEscaner==false){
                         $rootScope.activarEscaner=true;
@@ -145,6 +148,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                 cancelType: 'button-assertive',
                 scope: $scope
             });
+            IonicClosePopupService.register(articuloPopup);
 
             articuloPopup.then(function(res){
                 if(res){
@@ -208,6 +212,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                                 title: 'Error',
                                 template: error.headers("Error")
                             });
+                            IonicClosePopupService.register(alertPopup);
                         });
                    },function(error){
                         $scope.codigoCapturado.code=null;
@@ -217,6 +222,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                             title: 'Error',
                             template: error.headers("Error")
                         });
+                        IonicClosePopupService.register(alertPopup);
                         alertPopup.then(function(){$rootScope.ModalAgregarProducto.hide();});
                         $rootScope.member={};
                    });
@@ -237,6 +243,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                 okType: 'button-confirmar',
                 cancelType: 'button-cancelar'
             });
+            IonicClosePopupService.register(articuloPopup);
 
             articuloPopup.then(function(res){
                 if(res){
@@ -265,6 +272,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                 okType: 'button-confirmar',
                 cancelType: 'button-cancelar'
             });
+            IonicClosePopupService.register(articuloPopup);
 
             articuloPopup.then(function(res){
                 if(res){
@@ -347,7 +355,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
         });
 
         //Función para mostrar u ocultar la caja de búsqueda
-        $scopeBusqueda = function(){
+        /*$scope.Busqueda = function(){
             var contenedor = angular.element( document.getElementById('cajaBusqueda') );
             
             //Condiciones para mostrar y ocultar la caja  de búsqueda
@@ -364,7 +372,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                     document.getElementById("inputBuscar").focus(); 
                 },5);
             }
-        }
+        }*/
 
         $scope.Escanear = function() {
             try{
@@ -432,6 +440,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                                             title: 'Error',
                                             template: error.headers("Error")
                                         });
+                                        IonicClosePopupService.register(alertPopup);
                                     });}
                                     
                                ,function(error){
@@ -441,6 +450,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                                         title: 'Error',
                                         template: error.headers("Error")
                                     });
+                                    IonicClosePopupService.register(alertPopup);
                                     alertPopup.then(function(){$rootScope.ModalAgregarProducto.hide();});
                                });}
                             $scope.$apply();
@@ -451,6 +461,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                                     title: 'Errorrr',
                                     template: error
                                 });
+                                IonicClosePopupService.register(alertPopup);
                                 alertPopup.then(function(){$rootScope.ModalAgregarProducto.hide();});
                         },{orientation : "portrait", showTorchButton: true});
                     
@@ -468,6 +479,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                     title: 'Error',
                     template: 'No se ha ingresado ninguna cantidad'
                 });
+                IonicClosePopupService.register(alertPopup);
                 return;
             }
             else{   //Código para guardar un nuevo producto cuando la cantidad se agregó
@@ -568,11 +580,6 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
             document.getElementById("siEliminando").style.display = "block";
             document.getElementById("siEliminando2").style.display = "block";
             document.getElementById("siEliminando3").style.display = "block";
-            
-            var contenedor = angular.element( document.getElementById('cajaBusqueda') );
-            contenedor.removeClass('mostrado');
-            contenedor.addClass('oculto');
-            $rootScope.separadorBarra="50px";
         }
 
         //Función para cancelar selección multiple
@@ -629,6 +636,7 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
                 okType: 'button-confirmar',
                 cancelType: 'button-cancelar'
             });
+            IonicClosePopupService.register(articuloPopup);
 
             articuloPopup.then(function(res){
                 if(res){
@@ -670,6 +678,22 @@ app.controller('InventarioController', function($scope,$cordovaSQLite,$ionicLoad
 
                 }else{ return; }
             });
+        }
+
+        $scope.mBarraBuscar=false;
+        $scope.AbrirBusqueda=function(){
+            console.log("Funcion de barra");
+            if($scope.mBarraBuscar==false) {
+                $scope.mBarraBuscar=true;
+                $rootScope.separadorBarra="100px";
+            } else{
+                $scope.mBarraBuscar=false;
+                $rootScope.separadorBarra="50px";
+            } 
+        }
+
+        $scope.volverInicio=function(){
+            $state.go('main');
         }
 
           
