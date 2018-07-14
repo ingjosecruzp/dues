@@ -36,7 +36,7 @@
             <h2>Precios Coppel:</h2>
             <span style="color:gray; float:right; font-weight: bold; font-size: 14px;">    $ {{listaPrecios[5].Price|number:2}} {{listaPrecios[5].Currency}}</span>
     </a>
-    <a class="item">
+    <a class="item" ng-show="isAdmin">
             <h2>Lista de Precio Proveedor</h2>
             <span style="color:gray; float:right; font-weight: bold; font-size: 14px;">    $ {{listaPrecios[4].Price|number:2}} {{listaPrecios[4].Currency}}</span>
     </a>

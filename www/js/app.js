@@ -208,7 +208,7 @@ app.run(function($ionicPlatform) {
 
 //Variables Globales
 app.value('Variables',{
-  //IpServidor: '192.168.0.104:8080'
+  //IpServidor: '192.168.0.107:8080'
   //IpServidor: '192.168.1.47:80/WcfDues'
   //IpServidor: '200.52.220.238:8082'
   //IpServidor: '172.16.5.78:8080'

@@ -7,7 +7,7 @@
 </div>
 <ion-content style="background-color:white;" ng-controller="DatosInventarioController">
     <div style="height:85px;"></div>
-    <a class="item">
+    <a class="item" ng-show="isAdmin">
             <h2>Costo del Artículo:</h2>
             <span style="color:gray; float:right; font-weight: bold; font-size: 14px;">   ${{datosInventario.AvgPrice}}</span>
     </a>  
