@@ -25,8 +25,19 @@ app.controller('BuscarArticuloController', function($scope,Usuario,articulo,$ion
 		$rootScope.mostrarDivNoEncontrado=false;
 	}
 	$scope.Buscar=function(searchQuery){
-		if(searchQuery.length < 3)
-				return;
+		//Revisión de mínimo 3 caracteres para busqueda
+		if(searchQuery.length < 3){
+			$scope.Articulos={};
+			$rootScope.mostrarDivTeclado=true;
+			$scope.InfiniteScroll=false;
+
+			$ionicPopup.alert({
+				title: 'Alerta',
+				template: "Introduzca al menos 3 caracteres para buscar"
+			});
+
+			return;
+		}
 
 		var tipoBusqueda;
 		if($scope.opcionBusqueda=="codigo")	tipoBusqueda=1;	//Tipo 1 busca por itemCode
